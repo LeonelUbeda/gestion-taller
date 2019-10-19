@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "watch": false,
+        "outDir": "build",
+        "module": "commonjs",
+        "sourceMap": true
+    },
+    "types": ["jest"],
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "src/**/*.test.ts"
+
+    ]
+}
+
+

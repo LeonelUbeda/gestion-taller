@@ -1,0 +1,26 @@
+{
+  "name": "transporteosanchez",
+  "version": "1.0.0",
+  "description": "Gestión de taller",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "test:watch": "jest --watch",
+    "dev": "nodemon",
+    "build": "tsc"
+  },
+  "author": "Leonel Ubeda, Roberto Sanchez, Carlos Dinarte",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sequelize": "^5.21.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.19",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.4",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  }
+}
