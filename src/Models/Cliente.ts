@@ -1,7 +1,12 @@
 import Sequelize, {Model} from 'sequelize'
 import database from '../Database/database'
 
-class Cliente extends Model{}
+class Cliente extends Model{
+
+}
+
+
+
 
 Cliente.init({
     ID: {
@@ -9,17 +14,19 @@ Cliente.init({
         primaryKey: true,
         autoIncrement: true
     },
-    usuario: {
-        type: Sequelize.STRING(30)
-    },
     nombre: {
-        type: Sequelize.STRING(30)
+        type: Sequelize.STRING(50)
     },
     apellido: {
-        type: Sequelize.STRING(30)
-    },
-    contrasena: {
         type: Sequelize.STRING(50)
+    },
+    direccion: {
+        type: Sequelize.STRING(100)
+    },
+    tipoCliente:{
+        type: Sequelize.ENUM({
+            values:['Persona', 'Empresa']
+        })
     }
 }, {
     sequelize: database,

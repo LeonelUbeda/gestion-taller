@@ -2,24 +2,23 @@ import Sequelize, {Model} from 'sequelize'
 import database from '../Database/database'
 import Cliente from './Cliente'
 
-class Telefono extends Model {}
+class Telefono extends Model {
 
+}
 
 
 
 Telefono.init({
-    ID: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
+
     ID_Cliente: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
         
     },
-    numero: {
-        type: Sequelize.INTEGER
+    telefono: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
     }
 }, {
     sequelize: database,
