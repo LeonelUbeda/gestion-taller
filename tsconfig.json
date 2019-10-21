@@ -1,10 +1,12 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "watch": false,
         "outDir": "build",
         "module": "commonjs",
-        "sourceMap": true
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
     },
     "types": ["jest"],
     "include": [
@@ -13,7 +15,6 @@
     "exclude": [
         "node_modules",
         "src/**/*.test.ts"
-
     ]
 }
 
