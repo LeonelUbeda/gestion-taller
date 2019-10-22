@@ -4,10 +4,6 @@ import database from '../Database/database'
 class Cliente extends Model{
 
 }
-
-
-
-
 Cliente.init({
     ID: {
         type: Sequelize.INTEGER,
@@ -23,7 +19,7 @@ Cliente.init({
     direccion: {
         type: Sequelize.STRING(100)
     },
-    tipoCliente:{
+    tipoCliente: {
         type: Sequelize.ENUM({
             values:['Persona', 'Empresa']
         })

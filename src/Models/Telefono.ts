@@ -7,7 +7,6 @@ class Telefono extends Model {
 }
 
 
-
 Telefono.init({
 
     ID_Cliente: {
