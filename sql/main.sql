@@ -42,8 +42,8 @@ create table Usuario(
 -- CLIENTE
 create table cliente(
     ID integer primary key auto_increment,
-    Nombre varchar(50),
-    Apellido varchar(50),
+    Nombre varchar(50) not null,
+    Apellido varchar(50) ,
     Direccion varchar(100),
     TipoCliente enum('Persona', 'Empresa') not null,
     fechaRegistro datetime

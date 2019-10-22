@@ -1,8 +1,10 @@
 import Sequelize, {Model} from 'sequelize'
 import database from '../Database/database'
 
-class Cliente extends Model{
+// No se puede utilizar el database.define porque typescript no puede crear una clase a partir de esa funcion.
+// Mas informacion https://sequelize.org/master/manual/typescript
 
+class Cliente extends Model{
 }
 Cliente.init({
     ID: {
@@ -11,7 +13,8 @@ Cliente.init({
         autoIncrement: true
     },
     nombre: {
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING(50),
+        allowNull: false
     },
     apellido: {
         type: Sequelize.STRING(50)
@@ -23,6 +26,10 @@ Cliente.init({
         type: Sequelize.ENUM({
             values:['Persona', 'Empresa']
         })
+    },
+    fechaRegistro: {
+        type: Sequelize.DATE,
+        allowNull: false
     }
 }, {
     sequelize: database,
