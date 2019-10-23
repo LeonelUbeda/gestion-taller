@@ -1,6 +1,6 @@
 
 export const factoryModelTodos = ({ modelo }) =>  {  // Solo para busquedas de Where x = y and ... and ...
-    return async ({ limite = '10', ...busqueda }, ) => {
+    return async ({ limite = '10', offset = '0', ...busqueda }, ) => {
         try {
             // Si no existe limite en req.query...
 
@@ -8,7 +8,8 @@ export const factoryModelTodos = ({ modelo }) =>  {  // Solo para busquedas de W
                 where: {
                     ...busqueda,
                 },
-                limit: parseInt(limite)
+                limit: parseInt(limite),
+                offset: parseInt(offset)
             });
 
             return respuesta
