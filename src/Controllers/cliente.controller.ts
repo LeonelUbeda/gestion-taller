@@ -12,13 +12,13 @@ const ClienteTodos = factoryModelTodos({modelo: Cliente})
 const ClienteID = factoryModelID({ modelo: Cliente})
 
 
-const ClienteNuevo = async (req: Request, res: Response) => {
-    const { ...infoCliente } = req.body
+const ClienteNuevo = async (infoCliente ) => {
+    
     try {
         const resultado = await Cliente.create( { ... infoCliente, fechaRegistro: new Date() } )
-        res.status(205).json(resultado)
+       return resultado
     } catch (error) {
-        console.log(error)
+        return error
     }
 
 }
