@@ -1,6 +1,7 @@
 import {factoryModelTodos} from './cliente.controller'
 import { MockModel } from '../sequealize_mock_utils/MockModel'
 import Cliente from '../Models/Interfaces/Cliente.interface'
+
 test('factoryModelTodos devuelve una funcion', async () =>
 {
     const model: MockModel<Cliente> = new MockModel<Cliente>()

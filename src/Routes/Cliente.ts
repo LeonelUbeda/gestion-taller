@@ -7,23 +7,25 @@ import {ClienteTodos, ClienteID, ClienteNuevo, ClienteEliminar} from '../Control
 
 //Rutas
 router.get('/', async (req: Request, res: Response) => {
-    
-    res.json(ClienteTodos(req.query))
+    res.json(await ClienteTodos(req.query))
 });
-router.get('/:id', (req: Request, res: Response) => {
-    const id = req.params
-    res.json(ClienteID(id))
+
+router.get('/:id', async (req: Request, res: Response) => {
+    const { id } = req.params                              // Destructurar para que sea mas legible
+    res.json(await ClienteID(parseInt(id)))
 });
+
 router.post('/', async (req: Request, res: Response)  => {
     const { ...infoCliente } = req.body
     try {
-        const respuesta = ClienteNuevo(infoCliente)
-        res.send(205).json(respuesta)
+        const respuesta = await ClienteNuevo(infoCliente)
+        res.status(205).json(respuesta)
     } catch (error) {
         const codigoError = 404 // Algun codigo
-        res.send(codigoError).json(error)
+        res.status(codigoError).json(error)
     }
 });
+
 router.delete('/:id', ClienteEliminar)
 
 

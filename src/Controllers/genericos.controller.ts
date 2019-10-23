@@ -1,5 +1,5 @@
 
-export const factoryModelTodos = ({ modelo }) =>  {
+export const factoryModelTodos = ({ modelo }) =>  {  // Solo para busquedas de Where x = y and ... and ...
     return async ({ limite = '10', ...busqueda }, ) => {
         try {
             // Si no existe limite en req.query...
@@ -22,7 +22,7 @@ export const factoryModelTodos = ({ modelo }) =>  {
 }
 
 export const factoryModelID = ({ modelo }) => {
-    return async (id) => {
+    return async (id : number) => {
         try {
             const respuesta = await modelo.findOne({ where: { id } })
             return respuesta
