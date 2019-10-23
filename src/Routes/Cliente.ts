@@ -14,7 +14,16 @@ router.get('/:id', (req: Request, res: Response) => {
     const id = req.params
     res.json(ClienteID(id))
 });
-router.post('/', ClienteNuevo);
+router.post('/', async (req: Request, res: Response)  => {
+    const { ...infoCliente } = req.body
+    try {
+        const respuesta = ClienteNuevo(infoCliente)
+        res.send(205).json(respuesta)
+    } catch (error) {
+        const codigoError = 404 // Algun codigo
+        res.send(codigoError).json(error)
+    }
+});
 router.delete('/:id', ClienteEliminar)
 
 
