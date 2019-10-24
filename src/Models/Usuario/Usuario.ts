@@ -1,6 +1,7 @@
 import Sequelize, {Model} from 'sequelize'
 import database from '../../Database/database'
 import Rol from './Rol'
+import RolPermiso from './RolPermiso';
 
 class Usuario extends Model{}
 Usuario.init({

@@ -2,6 +2,7 @@ import Sequelize, {Model} from 'sequelize'
 import database from '../../Database/database'
 import Rol from './Rol'
 import Permiso from './Permiso'
+import Usuario from './Usuario'
 
 class RolPermiso extends Model{}
 
@@ -9,10 +10,18 @@ RolPermiso.init({
     ID_Rol: {
         type: Sequelize.INTEGER,
         primaryKey: true,
+        /*references: {
+            model: Rol,
+            key: 'id'
+        }*/
     },
     ID_Permiso: {
         type: Sequelize.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        /*references: {
+            model: Permiso,
+            key: 'id'
+        }*/
     },
     nivelAcceso: {
         type: Sequelize.TINYINT,
@@ -25,8 +34,9 @@ RolPermiso.init({
     sequelize: database,
     tableName: 'rolpermiso'
 })
+//RolPermiso.hasOne(Rol)
 
-RolPermiso.belongsTo(Rol,       {foreignKey: 'ID_Rol',        targetKey: 'id'})
-RolPermiso.belongsTo(Permiso,   {foreignKey: 'ID_Permiso',    targetKey: 'id'})
+
+
 
 export default RolPermiso

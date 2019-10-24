@@ -1,7 +1,7 @@
 import Sequelize, {Model} from 'sequelize'
 import database from '../../Database/database'
-
-
+import RolPermiso from '../Usuario/RolPermiso'
+import Permiso from '../Usuario/Permiso'
 class Rol extends Model{}
 Rol.init({
     id: {
@@ -17,6 +17,12 @@ Rol.init({
     sequelize: database,
     tableName: 'rol'
 })
+
+Rol.hasMany(RolPermiso, {
+    foreignKey: 'ID_Permiso',
+    sourceKey: 'id'
+})
+
 
 
 

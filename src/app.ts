@@ -1,32 +1,22 @@
 import express from "express"
 import database from './Database/database';
 import {json} from 'body-parser'
-
-
+import dotenv from 'dotenv'
+dotenv.config()
 const app = express();
 
 
 // Importando rutas
 import RutaCliente from './Routes/Cliente'
-
+import RutaAutenticacion from './Routes/Autenticacion'
 // Middlewares
 app.use(json())
 
 // Rutas
-app.use('/api/cliente', RutaCliente);
+app.use('/api/cliente', RutaCliente)
+app.use('/api/auth', RutaAutenticacion)
 
 
-
-import Rol from './Models/Usuario/Rol'
-import Permiso from './Models/Usuario/Permiso'
-import RolPermiso from './Models/Usuario/RolPermiso'
-
-
-Rol.create({nombre: 'Administrador'}).then(() => {
-    Permiso.create({nombre: 'Vehiculos'}).then(() => {
-        RolPermiso.create({ID_Rol: 1, ID_Permiso: 2, nivelAcceso: 4})
-    })
-})
 
 
 

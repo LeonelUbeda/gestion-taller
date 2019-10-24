@@ -7,7 +7,8 @@ import {ClienteTodos, ClienteID, ClienteNuevo, ClienteEliminar} from '../Control
 
 //Rutas
 router.get('/', async (req: Request, res: Response) => {
-    res.json(await ClienteTodos(req.query))
+    const consulta = req.query
+    res.json(await ClienteTodos(consulta))
 });
 
 router.get('/:id', async (req: Request, res: Response) => {
