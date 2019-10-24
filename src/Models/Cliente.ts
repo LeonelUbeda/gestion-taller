@@ -7,7 +7,7 @@ import database from '../Database/database'
 class Cliente extends Model{
 }
 Cliente.init({
-    ID: {
+    id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true

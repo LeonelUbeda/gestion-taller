@@ -20,7 +20,9 @@ create table RolPermiso(
         on update cascade,
 	constraint Rol_Permiso_ID_Permiso foreign key (ID_Permiso) references Permiso(ID)
 		on delete cascade
-        on update cascade
+        on update cascade,
+    primary key (ID_Rol, ID_Permiso)
+
 );
 
 -- USUARIO
@@ -31,7 +33,7 @@ create table Usuario(
     Usuario varchar(30) not null,
     Nombre varchar(50),
     Apellido varchar(50),
-    Contrasena varchar(100) not null,
+    Contrasena varchar(64) not null,
     constraint Usuario_ID_Rol foreign key (ID_Rol) references Rol(ID)
         on delete set null
         on update cascade

@@ -16,6 +16,29 @@ app.use(json())
 app.use('/api/cliente', RutaCliente);
 
 
+
+import Rol from './Models/Usuario/Rol'
+import Permiso from './Models/Usuario/Permiso'
+import RolPermiso from './Models/Usuario/RolPermiso'
+
+
+Rol.create({nombre: 'Administrador'}).then(() => {
+    Permiso.create({nombre: 'Vehiculos'}).then(() => {
+        RolPermiso.create({ID_Rol: 1, ID_Permiso: 2, nivelAcceso: 4})
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
 // Verificar que se conectó a la base de datos exitosamente 
 database.authenticate()
 .then(() => console.log('Conectado a la base de datos'))
