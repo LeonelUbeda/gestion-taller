@@ -1,51 +1,24 @@
 
 import {Response, Request} from 'express'
 import Cliente from '../Models/Cliente'
-import tipoCliente from '../Models/Interfaces/Cliente.interface'
+import TipoCliente from '../Models/Interfaces/Cliente.interface'
+import { factoryModelTodos, factoryModelID } from './genericos.controller'
 
-// 
-const ClienteTodos = async (req: Request, res: Response) => {
-    try {
-
-        let {limite,...busqueda } = req.query;
-
-        // Si no existe limite en req.query...
-        if (!limite) limite = 10;
-
-        const respuesta : tipoCliente = await Cliente.findAll ({
-            where: { ...busqueda }, 
-            limit: parseInt(limite)
-        });
-
-        res.json(respuesta)
-
-    } catch (error) {
-
-        console.log(error)
-
-    }
-}
+// Factory Model Todos
 
 
+const ClienteTodos = factoryModelTodos({modelo: Cliente})
 
-const ClienteID = async (req: Request, res: Response) => {
-    try {
-        const {id} = req.params;
-        const respuesta = await Cliente.findOne( { where: { id } } )
-        res.json(respuesta)
-    } catch (error) {
-        console.log(error)
-    }
-} 
+const ClienteID = factoryModelID({ modelo: Cliente})
 
 
-const ClienteNuevo = async (req: Request, res: Response) => {
-    const { ...infoCliente } = req.body
+const ClienteNuevo = async (infoCliente ) => {
+    
     try {
         const resultado = await Cliente.create( { ... infoCliente, fechaRegistro: new Date() } )
-        res.status(205).json(resultado)
+       return resultado
     } catch (error) {
-        console.log(error)
+        return error
     }
 
 }
@@ -65,4 +38,4 @@ const ClienteEliminar = async (req: Request, res: Response) => {
 
 }
 
-export {ClienteTodos, ClienteID, ClienteNuevo, ClienteEliminar}
+export {ClienteTodos, ClienteID, ClienteNuevo, ClienteEliminar, factoryModelTodos}
