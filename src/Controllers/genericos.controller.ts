@@ -3,7 +3,6 @@ export const factoryModelTodos = ({ modelo }) =>  {  // Solo para busquedas de W
     return async ({ limite = '10', offset = '0', ...busqueda }, ) => {
         try {
             // Si no existe limite en req.query...
-
             const respuesta = await modelo.findAll({
                 where: {
                     ...busqueda,
