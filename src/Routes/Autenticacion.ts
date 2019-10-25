@@ -14,10 +14,11 @@ router.post('/login', async (req: Request, res: Response) => {
     const usuario = 'Leonel'
     const contrasena = 'leonel'
     
-    const resultado = await usuarioLogin(usuario, contrasena)
+    const resultado: object = await usuarioLogin(usuario, contrasena)
     
     //var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
     //console.log(token)
+    console.log(resultado)
     res.json(resultado)
 })
 

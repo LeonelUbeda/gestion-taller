@@ -1,19 +1,14 @@
 import Sequelize, {Model} from 'sequelize'
 import database from '../../Database/database'
-import Rol from './Rol'
-import RolPermiso from './RolPermiso';
+
+import {Rol} from './RolPermiso'
 
 class Usuario extends Model{}
 Usuario.init({
     id: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    ID_Rol: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-
+        autoIncrement: true,
+        primaryKey: true
     },
     usuario: {
         type: Sequelize.STRING(30),
@@ -25,13 +20,22 @@ Usuario.init({
     },
     apellido: {
         type: Sequelize.STRING(50)
+    },
+    contrasena: {
+        type: Sequelize.STRING(64)
     }
 }, {
     sequelize: database,
     tableName: 'usuario'
 })
 
-Usuario.belongsTo(Rol, {foreignKey: 'ID_Rol', targetKey: 'id'})
+Usuario.belongsTo(Rol, {
+    foreignKey:{
+        allowNull: false,
+        name:'rolId'
+    },
+    constraints: true
+})
 
 
 export default Usuario

@@ -1,13 +1,13 @@
 import Usuario from '../Models/Usuario/Usuario'
 import encriptar from '../utils/encriptar'
-import Rol from '../Models/Usuario/Rol'
-import RolPermiso from '../Models/Usuario/RolPermiso';
-import Permiso from '../Models/Usuario/Permiso';
+
+
+import {Rol, RolPermiso, Permiso} from '../Models/Usuario/RolPermiso';
 
 export const usuarioLogin = async (usuario: string, contrasena: string) => {
     const contrasenaHash: string = encriptar(contrasena)
     try {
-        const respuesta = await Usuario.findOne({
+        const respuesta = await Usuario.findAll({
             where: {
                 usuario,
                 contrasena: contrasenaHash,
@@ -15,46 +15,22 @@ export const usuarioLogin = async (usuario: string, contrasena: string) => {
             include: [{
                 model: Rol,
                 include: [{
-                    model: RolPermiso,
-                    where:{
-                        ID_Rol: 1
-                    }
+                    //model: RolPermiso,
                 }]
             }]
         })
-        
-        const prueba = await RolPermiso.findAll({
+      
+        /*const prueba = await RolPermiso.findAll({
             where: {
-                ID_Rol: 1
-            }
-    
+                
+            },
+            include: [{model: Rol}, {model: Permiso}]
         })
-        console.log(JSON.stringify("PRUEBAAAAAAAAAA",prueba))
         
+        */
         return respuesta
+        //return prueba
     } catch (error) {
         return error
-    }
-}
-
-export const factoryLoginUser = ({ modelo }) =>  {  // Solo para busquedas de Where x = y and ... and ...
-    return async ({ limite = '10', offset = '0', ...busqueda }, ) => {
-        try {
-            // Si no existe limite en req.query...
-            const respuesta = await modelo.findAll({
-                where: {
-                    ...busqueda,
-                },
-                limit: parseInt(limite),
-                offset: parseInt(offset)
-            });
-
-            return respuesta
-
-        } catch (error) {
-
-            console.log(error)
-
-        }
     }
 }

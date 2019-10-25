@@ -1,28 +1,49 @@
 import Sequelize, {Model} from 'sequelize'
 import database from '../../Database/database'
-import Rol from './Rol'
-import Permiso from './Permiso'
 import Usuario from './Usuario'
+
+
+
+class Rol extends Model{}
+Rol.init({
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    nombre: {
+        type: Sequelize.STRING(30),
+        allowNull: false
+    }
+}, {
+    sequelize: database,
+    tableName: 'rol'
+})
+
+
+
+class Permiso extends Model{}
+Permiso.init({
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    nombre: {
+        type: Sequelize.STRING(30),
+        allowNull: false
+    }
+}, {
+    sequelize: database,
+    tableName: 'permiso'
+})
+
+
+
 
 class RolPermiso extends Model{}
 
 RolPermiso.init({
-    ID_Rol: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        /*references: {
-            model: Rol,
-            key: 'id'
-        }*/
-    },
-    ID_Permiso: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        /*references: {
-            model: Permiso,
-            key: 'id'
-        }*/
-    },
     nivelAcceso: {
         type: Sequelize.TINYINT,
         validate: {
@@ -34,9 +55,21 @@ RolPermiso.init({
     sequelize: database,
     tableName: 'rolpermiso'
 })
-//RolPermiso.hasOne(Rol)
 
 
+Permiso.belongsToMany(Rol, {
+    through: {
+        model: RolPermiso
+    }
+})
 
 
-export default RolPermiso
+Rol.belongsToMany(Permiso, {
+    through: {
+        model: RolPermiso
+    },
+    
+})
+
+
+export {RolPermiso, Rol, Permiso}

@@ -9,12 +9,18 @@ const app = express();
 // Importando rutas
 import RutaCliente from './Routes/Cliente'
 import RutaAutenticacion from './Routes/Autenticacion'
+import RutaUsuario from './Routes/Usuario'
+import RutaRol from './Routes/Rol'
+import RutaPermiso from './Routes/Permiso'
 // Middlewares
 app.use(json())
 
 // Rutas
-app.use('/api/cliente', RutaCliente)
-app.use('/api/auth', RutaAutenticacion)
+app.use('/api/cliente',  RutaCliente)
+app.use('/api/auth',     RutaAutenticacion)
+app.use('/api/usuario',  RutaUsuario )
+app.use('/api/rol',      RutaRol)
+app.use('/api/permiso',  RutaPermiso)
 
 
 
@@ -23,9 +29,7 @@ app.use('/api/auth', RutaAutenticacion)
 
 
 
-
-
-
+database.sync(/*{force: true}*/); 
 
 
 
