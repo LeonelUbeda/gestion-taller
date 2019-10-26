@@ -8,9 +8,9 @@ export const factoryModelTodos = ({ modelo }) =>  {  // Solo para busquedas de W
         try {
             // Si no existe limite en req.query...
             const respuesta = await modelo.findAll({
-                where: {
+                where: [
                     ...busqueda,
-                },
+                ],
                 limit: parseInt(limite),
                 offset: parseInt(offset)
             });
