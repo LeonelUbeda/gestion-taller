@@ -2,6 +2,9 @@ import express from "express"
 import database from './Database/database';
 import {json} from 'body-parser'
 import dotenv from 'dotenv'
+
+import verificarLogin from './Middlewares/verificarLogin'
+
 dotenv.config()
 const app = express();
 
@@ -16,7 +19,7 @@ import RutaPermiso from './Routes/Permiso'
 app.use(json())
 
 // Rutas
-app.use('/api/cliente',  RutaCliente)
+app.use('/api/cliente', /*verificarLogin, */RutaCliente)
 app.use('/api/auth',     RutaAutenticacion)
 app.use('/api/usuario',  RutaUsuario )
 app.use('/api/rol',      RutaRol)
@@ -29,7 +32,7 @@ app.use('/api/permiso',  RutaPermiso)
 
 
 
-database.sync(/*{force: true}*/); 
+//database.sync({force: true}); 
 
 
 

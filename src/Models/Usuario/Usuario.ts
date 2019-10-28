@@ -5,14 +5,11 @@ import {Rol} from './RolPermiso'
 
 class Usuario extends Model{}
 Usuario.init({
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
+
     usuario: {
         type: Sequelize.STRING(30),
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
     },
     nombre: {
         type: Sequelize.STRING(50),

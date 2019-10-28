@@ -8,12 +8,23 @@ import {ClienteTodos, ClienteID, ClienteNuevo, ClienteEliminar} from '../Control
 //Rutas
 router.get('/', async (req: Request, res: Response) => {
     const consulta = req.query
-    res.json(await ClienteTodos(consulta))
+    try {
+        const resultado = await ClienteTodos(consulta)
+        res.status(200).json(resultado)
+    } catch (error) {
+        res.status(400).json({mensaje: 'Error'})
+    }
 });
 
 router.get('/:id', async (req: Request, res: Response) => {
-    const { id } = req.params                              // Destructurar para que sea mas legible
-    res.json(await ClienteID(parseInt(id)))
+    const { id } = req.params        
+    try {
+        const resultado = await ClienteID(parseInt(id))
+        res.status(200).json(resultado)
+    } catch (error) {
+        res.status(400).json({mensaje: 'Error'})
+    }                     
+    
 });
 
 router.post('/', async (req: Request, res: Response)  => {

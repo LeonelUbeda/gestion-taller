@@ -1,16 +1,13 @@
 
 import Sequelize from 'sequelize'
 const Op = Sequelize.Op
-
+import {Rol, Permiso, RolPermiso} from '../Models/Usuario/RolPermiso'
 
 export const factoryModelTodos = ({ modelo }) =>  {  // Solo para busquedas de Where x = y and ... and ...
-    return async ({ limite = '10', offset = '0', ...busqueda }, ) => {
+    return async ({ limite = '10', offset = '0', ...busqueda }) => {
         try {
-            // Si no existe limite en req.query...
             const respuesta = await modelo.findAll({
-                where: {
-                    ...busqueda,
-                },
+                where: {...busqueda},
                 limit: parseInt(limite),
                 offset: parseInt(offset)
             });
@@ -31,8 +28,10 @@ export const factoryModelID = ({ modelo }) => {
         }
     } 
 }
+
+// Recibe todos los campos de la tabla. Si no se pasa un campo obligatorio manda un error
 export const factoryModelNuevo = ({ modelo }) => {
-    return async (elemento) => {
+    return async (elemento: object) => {
         try {
             const respuesta = await modelo.create({ ...elemento })
             return respuesta
@@ -48,7 +47,6 @@ export const factoryModelNuevo = ({ modelo }) => {
 export const factoryModelActualizarId = ({ modelo }) => {
     return async ({id,...camposActualizar}) => {
         try {
-         
             const respuesta = await modelo.update(camposActualizar, {where: { id }})
             console.log(respuesta)
             return respuesta
@@ -59,6 +57,25 @@ export const factoryModelActualizarId = ({ modelo }) => {
         }
     }
 }
+
+// Recibe un objeto {campo: nombre, valor: 'UsuarioJuan'} y los campos a actualizar con sus respectivos valores
+export const factoryModelActualizarPorPK = ({ modelo }) => {
+    return async ({campo, valor}, camposActualizar: object) => {
+        try {
+
+            // UPDATE modelo SET camposActualizar WHERE campo = valor
+            const respuesta = await modelo.update({...camposActualizar }, {where: { [campo]: valor } ,  logging: console.log})
+            return respuesta
+        } catch (error) {
+            
+            console.log(error)
+            throw error
+        }
+    }
+}
+
+
+
 
 // Recibe un objeto con las condiciones para eliminar registros
 export const factoryModelEliminarCondicionAnd = ({ modelo }) => {
