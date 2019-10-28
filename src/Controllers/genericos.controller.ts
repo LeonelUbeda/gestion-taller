@@ -58,11 +58,14 @@ export const factoryModelActualizarId = ({ modelo }) => {
     }
 }
 
-// Recibe un objeto {campo: nombre, valor: 'UsuarioJuan'} y los campos a actualizar con sus respectivos valores
+
+// Funcion para actualizar tablas con una condición. 
+// Se creó porque habian tablas que la llave primaria NO eran números incrementales
+// Recibe un objeto {campo: nombre, valor: 'UsuarioJuan'} y un objeto con los campos a actualizar {nombre: 'Ricardo', apellido: 'fulano'}
 export const factoryModelActualizarPorPK = ({ modelo }) => {
     return async ({campo, valor}, camposActualizar: object) => {
         try {
-
+            // Esto hace un: 
             // UPDATE modelo SET camposActualizar WHERE campo = valor
             const respuesta = await modelo.update({...camposActualizar }, {where: { [campo]: valor } ,  logging: console.log})
             return respuesta
