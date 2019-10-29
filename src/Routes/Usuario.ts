@@ -2,7 +2,7 @@ import {Router, Response, Request} from 'express'
 
 import {Rol, RolPermiso, Permiso} from '../Models/Usuario/RolPermiso'
 import {usuarioNuevo, usuarioActualizar, usuarioEliminar, usuarioTodos} from '../Controllers/Usuario/usuario.controller'
-import { async } from 'q';
+
 const router = Router();
 
 
