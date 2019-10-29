@@ -1,5 +1,5 @@
 import {Router, Response, Request} from 'express'
-
+import verificarPermiso from '../Middlewares/verificarPermisos'
 const router = Router();
 
 //Controladores
@@ -16,8 +16,9 @@ router.get('/', async (req: Request, res: Response) => {
     }
 });
 
-router.get('/:id', async (req: Request, res: Response) => {
-    const { id } = req.params        
+router.get('/:id',/* verificarPermiso('managerrr', 5) , */ async (req: Request, res: Response) => {
+    const { id } = req.params       
+    
     try {
         const resultado = await ClienteID(parseInt(id))
         res.status(200).json(resultado)
