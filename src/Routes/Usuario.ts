@@ -1,33 +1,16 @@
 import {Router, Response, Request} from 'express'
-
 import {Rol, RolPermiso, Permiso} from '../Models/Usuario/RolPermiso'
-import {usuarioNuevo, usuarioActualizar, usuarioEliminar, usuarioTodos} from '../Controllers/Usuario/usuario.controller'
+import {usuarioNuevo, usuarioActualizar, usuarioEliminar, usuarioTodos, usuarioID, usuarioIDRol} from '../Controllers/Usuario/usuario.controller'
 
+import encriptar from '../utils/encriptar'
 const router = Router();
 
 
 
 
-
-
-
-// Crear nuevo Usuario.     Obligatorio: usuario, nombre, rolId.    Opcional: apellido
-router.post('/', async (req: Request, res: Response) => {
-    const elemento = req.body
-    console.log(elemento)
-    try {
-        const resultado = await usuarioNuevo({ ...elemento })
-        res.status(201).json(resultado)
-
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }
-})
-
-
 // Obtener todos los usuarios
 router.get('/', async (req: Request, res: Response) => {
-    const consulta = req.params
+    const consulta = req.query
     try {
         const resultado = await usuarioTodos(consulta)
         res.status(200).json(resultado)
@@ -36,11 +19,42 @@ router.get('/', async (req: Request, res: Response) => {
     }
 })
 
-// Actualizar un usuario.   Obligatorio: id     Opcional: campos a actualizar
-router.put('/', async (req: Request, res: Response) => {
-    const { id, ...elemento} = req.body;
+// Obtener todos los usuarios
+router.get('/:usuario', async (req: Request, res: Response) => {
+    const { usuario } = req.params
     try {
-        const resultado = await usuarioActualizar({id, ...elemento})
+        const resultado = await usuarioIDRol(usuario)
+        res.status(200).json(resultado)
+    } catch (error) {
+        res.status(400).json({mensaje: 'Error'})
+    }
+})
+
+
+// Crear nuevo Usuario.     Obligatorio: usuario, nombre, rolId.    Opcional: apellido
+router.post('/', async (req: Request, res: Response) => {
+
+    let {usuario, nombre, rolId, apellido, contrasena} = req.body
+
+    if(contrasena){
+        contrasena = encriptar(contrasena)
+    }
+    try {
+        const resultado = await usuarioNuevo({ usuario, nombre, rolId, apellido, contrasena })
+        res.status(201).json(resultado)
+    } catch (error) {
+        res.status(400).json({mensaje: 'Error'})
+    }
+})
+
+// Actualizar un usuario.   Obligatorio: usuario     Opcional: campos a actualizar
+router.put('/:usuario', async (req: Request, res: Response) => {
+    const elemento= req.body;
+    const {usuario} = req.params
+    console.log(elemento)
+ 
+    try {
+        const resultado = await usuarioActualizar({campo: 'usuario', valor: usuario }, elemento)
         res.status(201).json(resultado)
 
     } catch (error) {
@@ -48,6 +62,9 @@ router.put('/', async (req: Request, res: Response) => {
         res.status(400).json({mensaje: 'Error'})
     }
 })
+
+
+
 
 // Elimina un usuario. Se obtiene el id por los parametros de url
 router.delete('/:id', async (req: Request, res: Response) => {

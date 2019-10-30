@@ -15,7 +15,7 @@ export const usuarioLogin = async (usuario: string, contrasena: string) => {
             include: [{
                 model: Rol,
                 include: [{
-                    //model: RolPermiso,
+                    model: Permiso,
                 }]
             }]
         })
@@ -34,3 +34,7 @@ export const usuarioLogin = async (usuario: string, contrasena: string) => {
         return error
     }
 }
+
+
+
+//export const 
