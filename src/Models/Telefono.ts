@@ -26,6 +26,6 @@ Telefono.init({
 })
 
 
-Telefono.belongsTo(Cliente, {foreignKey: 'ID_Cliente' , targetKey:'ID'})
+Telefono.belongsTo(Cliente, {foreignKey: 'ID_Cliente' , targetKey:'id'})
 
 export default Telefono;

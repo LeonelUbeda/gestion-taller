@@ -2,40 +2,31 @@
 import {Response, Request} from 'express'
 import Cliente from '../Models/Cliente'
 import TipoCliente from '../Models/Interfaces/Cliente.interface'
-import { factoryModelTodos, factoryModelID } from './genericos.controller'
+import { factoryModelTodos, factoryModelID, factoryModelEliminarCondicionAnd, factoryModelNuevo } from './genericos.controller'
+import Telefono from '../Models/Telefono';
 
 // Factory Model Todos
 
 
-const ClienteTodos = factoryModelTodos({modelo: Cliente})
+export const ClienteTodos = factoryModelTodos({modelo: Cliente})
 
-const ClienteID = factoryModelID({ modelo: Cliente})
+export const ClienteID = factoryModelID({modelo: Cliente})
 
+export const ClienteEliminar = factoryModelEliminarCondicionAnd({modelo: Cliente})
 
-const ClienteNuevo = async (infoCliente ) => {
-    
+export const ClienteNuevo = async (infoCliente) => {
     try {
         const resultado = await Cliente.create( { ... infoCliente, fechaRegistro: new Date() } )
        return resultado
     } catch (error) {
         return error
     }
-
 }
 
 
 
-const ClienteEliminar = async (req: Request, res: Response) => {
-    const { id } = req.params;
 
-    try {
-        const resultado = await Cliente.destroy({ where: { id } });
-        console.log(resultado)
-        res.json(resultado)
-    } catch (error) {
-        console.log(error)
-    }
+// TELEFONO
 
-}
-
-export {ClienteTodos, ClienteID, ClienteNuevo, ClienteEliminar, factoryModelTodos}
+export const telefonoClienteEliminar = factoryModelEliminarCondicionAnd({modelo: Telefono})
+export const telefonoClienteNuevo = factoryModelNuevo({modelo: Telefono})
