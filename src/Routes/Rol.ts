@@ -1,52 +1,58 @@
 import {Router, Response, Request} from 'express'
-import {rolNuevo, rolTodos, rolId, rolEliminar, rolActualizar} from '../Controllers/Usuario/rol.controller'
 
 const router = Router();
 
 
+// -------------------- Controladores --------------------
+import {rolNuevo, rolTodos, rolId, rolEliminar, rolActualizar} from '../Controllers/Usuario/rol.controller'
 
+
+
+// -------------------- Rutas Rol --------------------
 
 // Ruta generica para buscar roles
 router.get('/', async (req: Request, res: Response) => {
     const consulta = req.query
-    res.json(await rolTodos(consulta))
+    try {
+        const resultado = await rolTodos(consulta)
+        res.status(200).json(resultado)
+    } catch (error) {
+        res.status(400).json({mensaje: 'Error'})
+    }
 });
-
-
-
 
 
 router.get('/:id', async (req: Request, res: Response) => {
     const {id} = req.params
-    res.json(await rolId(parseInt(id)))
+    try {
+        const resultado = await rolId(parseInt(id))
+        res.status(200).json(resultado)
+    } catch (error) {
+        res.status(400).json({mensaje: 'Error'})
+    }
 });
 
 
 // Crear nuevo Rol.     Obligatorio: nombre
 router.post('/', async (req: Request, res: Response) => {
-    const nombre = req.body
-    console.log(nombre)
+    const elemento = req.body
     try {
-        const resultado = await rolNuevo(nombre)
-        res.status(201).json(resultado)
-        console.log(JSON.stringify(resultado))
-        
+        const resultado = await rolNuevo({...elemento})
+        res.status(201).json(resultado) 
     } catch (error) {
-        res.status(400).json()
+        res.status(400).json({mensaje: 'Error'})
     }
 })
 
 
 // Actualizar un rol.   Obligatorio: id     Opcional: campos a actualizar
 router.put('/:id', async (req: Request, res: Response) => {
-    const {...elemento} = req.body;
+    const elemento = req.body;
     const { id } = req.params
     try {
         const resultado = await rolActualizar({id, ...elemento})
         res.status(201).json(resultado)
-
     } catch (error) {
-        console.log(error)
         res.status(400).json({mensaje: 'Error'})
     }
 })
@@ -54,10 +60,9 @@ router.put('/:id', async (req: Request, res: Response) => {
 
 router.delete('/:id', async (req: Request, res: Response) => {
     const {id} = req.params
-    
     try {
         const resultado = await rolEliminar({id})
-        res.status(200).json({mensaje: 'Eliminado'})
+        res.status(200).json(resultado)
     } catch (error) {
         res.status(400).json({mensaje: 'Error'})
         

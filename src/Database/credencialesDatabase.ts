@@ -1,13 +1,13 @@
-/*
+
 export default {
     host: 'localhost',
     user: 'root',
     password: 'admin',
     database: 'taller'
 }
-*/
 
 
+/*
 export default {
     host: 'LAPTOP-LEONEL',
     user: 'leonel',
@@ -15,3 +15,4 @@ export default {
     database: 'taller'
 }
 
+*/

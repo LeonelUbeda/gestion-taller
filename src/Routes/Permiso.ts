@@ -3,6 +3,11 @@ import {permisoNuevo} from '../Controllers/Usuario/permiso.controller'
 
 const router = Router();
 
+
+
+
+
+
 // Crear nuevo Permiso.     Obligatorio: nombre
 router.post('/', async (req: Request, res: Response) => {
     const elemento = req.body
