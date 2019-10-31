@@ -59,7 +59,7 @@ const verificarPermiso = (nombreSeccion: string, nivelDeAccesoRequerido: number)
 
             // Busca entre el arreglo de permisos, el permiso que tenga la propiedad nombre y sea igual a nombreSección
             const permisoEspecifico: any = permisoTodos.find((seccion: any) => { 
-                return seccion.nombre.toLowerCase() == nombreSeccion.toLowerCase()
+                return seccion.nombre.toLowerCase() === nombreSeccion.toLowerCase()
             })
 
             // Busca del objeto permisoEspecifico la propiedad nivelAcceso y la almaceno en nivelDeAcceso

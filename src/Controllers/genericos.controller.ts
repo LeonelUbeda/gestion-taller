@@ -36,8 +36,6 @@ export const factoryModelNuevo = ({ modelo }) => {
             const respuesta = await modelo.create({ ...elemento })
             return respuesta
         } catch (error) {
-            let errorFormateado = error.errors.map(a => a.message);
-            console.log(errorFormateado)
             throw error
         }
     }

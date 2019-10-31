@@ -3,7 +3,7 @@ import verificarPermiso from '../Middlewares/verificarPermisos'
 const router = Router();
 
 //Controladores
-import {ClienteTodos, ClienteID, ClienteNuevo, ClienteEliminar} from '../Controllers/cliente.controller';
+import {ClienteTodos, ClienteID, ClienteNuevo, ClienteEliminar, telefonoClienteEliminar, telefonoClienteNuevo} from '../Controllers/cliente.controller';
 
 //Rutas
 router.get('/', async (req: Request, res: Response) => {
@@ -39,7 +39,42 @@ router.post('/', async (req: Request, res: Response)  => {
     }
 });
 
-router.delete('/:id', ClienteEliminar)
+router.delete('/:id', async (req: Request, res: Response ) => {
+    const { id } = req.params
+    try {
+        const respuesta = await ClienteEliminar({id})
+        res.status(200).json(respuesta)
+    } catch (error) {
+        
+    }
+})
+
+
+
+// TELEFONO
+
+
+router.post('/telefono', async(req: Request, res: Response ) => {
+    const {telefono, id} = req.body
+    try {
+        const respuesta = await telefonoClienteNuevo({ID_Cliente: id, telefono})
+        res.status(201).json(respuesta)
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({mensaje: 'Error'})
+    }
+})
+
+
+router.delete('/:id/:telefono', async (req: Request, res: Response ) => {
+    const { id, telefono } = req.params
+    try {
+        const respuesta = await telefonoClienteEliminar({ID_Cliente: id, telefono })
+        res.status(200).json(respuesta)
+    } catch (error) {
+        res.status(400).json({mensaje: 'Error'})
+    }
+})
 
 
 
