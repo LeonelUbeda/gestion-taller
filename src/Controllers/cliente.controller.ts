@@ -24,8 +24,6 @@ export const ClienteNuevo = async (infoCliente) => {
 }
 
 
-
-
 // TELEFONO
 
 export const telefonoClienteEliminar = factoryModelEliminarCondicionAnd({modelo: Telefono})

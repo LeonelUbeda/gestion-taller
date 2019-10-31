@@ -19,22 +19,8 @@ export const usuarioLogin = async (usuario: string, contrasena: string) => {
                 }]
             }]
         })
-      
-        /*const prueba = await RolPermiso.findAll({
-            where: {
-                
-            },
-            include: [{model: Rol}, {model: Permiso}]
-        })
-        
-        */
         return respuesta
-        //return prueba
     } catch (error) {
         return error
     }
 }
-
-
-
-//export const 
