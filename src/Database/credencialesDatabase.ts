@@ -9,7 +9,7 @@ export default {
 
 /*
 export default {
-    host: 'LEONEL-PC',
+    host: 'LAPTOP-LEONEL',
     user: 'leonel',
     password: 'leonel',
     database: 'taller'

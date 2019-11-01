@@ -1,12 +1,20 @@
 import {Router, Response, Request} from 'express'
-import {Rol, RolPermiso, Permiso} from '../Models/Usuario/RolPermiso'
-import {usuarioNuevo, usuarioActualizar, usuarioEliminar, usuarioTodos, usuarioID, usuarioIDRol} from '../Controllers/Usuario/usuario.controller'
-
-import encriptar from '../utils/encriptar'
 const router = Router();
 
 
+// -------------------- Controladores --------------------
+import {usuarioNuevo, usuarioActualizar, usuarioEliminar, usuarioTodos, usuarioID, usuarioIDRol} from '../Controllers/Usuario/usuario.controller'
 
+
+// -------------------- Utils --------------------
+import encriptar from '../utils/encriptar'
+
+
+
+
+
+
+// -------------------- Rutas Usuario --------------------
 
 // Obtener todos los usuarios
 router.get('/', async (req: Request, res: Response) => {
@@ -49,12 +57,12 @@ router.post('/', async (req: Request, res: Response) => {
 
 // Actualizar un usuario.   Obligatorio: usuario     Opcional: campos a actualizar
 router.put('/:usuario', async (req: Request, res: Response) => {
-    const elemento= req.body;
+    const elemento = req.body;
     const {usuario} = req.params
     console.log(elemento)
  
     try {
-        const resultado = await usuarioActualizar({campo: 'usuario', valor: usuario }, elemento)
+        const resultado = await usuarioActualizar(elemento, {usuario})
         res.status(201).json(resultado)
 
     } catch (error) {

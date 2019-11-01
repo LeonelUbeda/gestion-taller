@@ -1,13 +1,15 @@
 import {Router, Response, Request} from 'express'
 import jwt from 'jsonwebtoken'
-
-import Usuario from '../Models/Usuario/Usuario'
-import {usuarioLogin} from '../Controllers/autorizacion.controller'
-import encriptar from '../utils/encriptar';
 const router = Router();
 
 
+// -------------------- Controladores -------------------- 
+import {usuarioLogin} from '../Controllers/autorizacion.controller'
 
+
+
+
+// -------------------- Rutas de autenticación -------------------- 
 
 router.post('/login', async (req: Request, res: Response) => {
     const { usuario, contrasena } = req.body
@@ -26,8 +28,6 @@ router.post('/login', async (req: Request, res: Response) => {
         res.send('NEL')
     }
 })
-
-
 
 router.get('/inicio', (req: Request, res: Response) => {
     try {

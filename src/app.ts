@@ -19,7 +19,7 @@ import RutaPermiso from './Routes/Permiso'
 app.use(json())
 
 // Rutas
-app.use('/api/cliente', verificarLogin, RutaCliente)
+app.use('/api/cliente', /*verificarLogin,*/ RutaCliente)
 app.use('/api/auth',     RutaAutenticacion)
 app.use('/api/usuario',  RutaUsuario )
 app.use('/api/rol',      RutaRol)
@@ -31,7 +31,7 @@ app.use('/api/permiso',  RutaPermiso)
 
 
 
-
+// Para eliminar y crear la base de datos
 //database.sync({force: true}); 
 
 
