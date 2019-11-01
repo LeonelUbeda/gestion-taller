@@ -62,7 +62,8 @@ test('Mock Model seleccionar un elemento del MockData', () => {
         mockModel.addResults(data);
 
     const result = mockModel.findOne()
-    expect(result).toStrictEqual(data[0])
+    expect(Array.isArray(result)).toBeTruthy()
+    expect(result).toStrictEqual([data[0]])
     expect(result.length).toBe(1)
 })
 
