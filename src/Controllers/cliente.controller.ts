@@ -2,7 +2,7 @@
 import {Response, Request} from 'express'
 import Cliente from '../Models/Cliente'
 import TipoCliente from '../Models/Interfaces/Cliente.interface'
-import { factoryModelTodos, factoryModelID, factoryModelEliminarCondicionAnd, factoryModelNuevo, factoryModelActualizarPorCampo } from './genericos.controller'
+import { factoryModelTodos, factoryModelID, factoryModelEliminarCondicionAnd, factoryModelNuevo, factoryModelActualizarPorCampo, factoryModelActualizarId } from './genericos.controller'
 import Telefono from '../Models/Telefono';
 
 // Factory Model Todos
@@ -14,12 +14,15 @@ export const ClienteID = factoryModelID({modelo: Cliente})
 
 export const ClienteEliminar = factoryModelEliminarCondicionAnd({modelo: Cliente})
 
+export const clienteActualizar = factoryModelActualizarId({modelo: Cliente})
+
 export const ClienteNuevo = async (infoCliente) => {
     try {
         const resultado = await Cliente.create( { ... infoCliente, fechaRegistro: new Date() } )
-       return resultado
+        return resultado
     } catch (error) {
-        return error
+        console.log(error)
+        throw error
     }
 }
 

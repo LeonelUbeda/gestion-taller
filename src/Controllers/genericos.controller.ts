@@ -1,8 +1,4 @@
 
-import Sequelize from 'sequelize'
-const Op = Sequelize.Op
-import {Rol, Permiso, RolPermiso} from '../Models/Usuario/RolPermiso'
-
 export const factoryModelTodos = ({ modelo }) =>  {  // Solo para busquedas de Where x = y and ... and ...
     return async ({ limite = '10', offset = '0', ...busqueda }) => {
         try {
@@ -13,6 +9,7 @@ export const factoryModelTodos = ({ modelo }) =>  {  // Solo para busquedas de W
             });
             return respuesta
         } catch (error) {
+            console.log(error)
             throw error
         }
     }
@@ -24,6 +21,7 @@ export const factoryModelID = ({ modelo }) => {
             const respuesta = await modelo.findOne({ where: { id } })
             return respuesta
         } catch (error) {
+            console.log(error)
             throw error
         }
     } 
@@ -36,20 +34,22 @@ export const factoryModelNuevo = ({ modelo }) => {
             const respuesta = await modelo.create({ ...elemento })
             return respuesta
         } catch (error) {
+            console.log(error)
             throw error
         }
     }
 }
 
 // Recibe un id y los campos a actualizar con sus respectivos valores
+// {id: 4, nombre: 'Ricardo',  apellido: 'Juancho'}
+// Se tomará nombre y apellido como parte de los campos a actualizar y el ID como la condición (where)
 export const factoryModelActualizarId = ({ modelo }) => {
-    return async ({id,...camposActualizar}) => {
+    return async ({id, ...camposActualizar}) => {
         try {
             const respuesta = await modelo.update(camposActualizar, {where: { id }})
             console.log(respuesta)
             return respuesta
         } catch (error) {
-            
             console.log(error)
             throw error
         }
@@ -59,16 +59,16 @@ export const factoryModelActualizarId = ({ modelo }) => {
 
 // Funcion para actualizar tablas con una condición. 
 // Se creó porque habian tablas que la llave primaria NO eran números incrementales
-// Recibe un objeto {campo: nombre, valor: 'UsuarioJuan'} y un objeto con los campos a actualizar {nombre: 'Ricardo', apellido: 'fulano'}
+// Recibe un objeto con los campos a actualizar y un objeto con la condición
+// camposActualizar: {direccion: 'Mi casita'} / condicion: {nombre: 'Developer'}
 export const factoryModelActualizarPorCampo = ({ modelo }) => {
     return async (camposActualizar: object, condicion: object) => {
         try {
             // Esto hace un: 
             // UPDATE modelo SET camposActualizar WHERE campo = valor
-            const respuesta = await modelo.update({...camposActualizar }, {where: { ...condicion } })
+            const respuesta = await modelo.update({ ...camposActualizar }, {where: { ...condicion } })
             return respuesta
         } catch (error) {
-            
             console.log(error)
             throw error
         }

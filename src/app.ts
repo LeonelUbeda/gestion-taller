@@ -31,7 +31,7 @@ app.use('/api/permiso',  RutaPermiso)
 
 
 
-
+// Para eliminar y crear la base de datos
 //database.sync({force: true}); 
 
 
