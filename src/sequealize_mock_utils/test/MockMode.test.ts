@@ -1,5 +1,5 @@
-import { MockModel } from './MockModel'
-import { Op } from './Operadores'
+import { MockModel } from '../MockModel'
+import { Op } from '../Operadores'
 
 test('Mock Model los atributos deben de set un array de strings ', () => {
     const mockModel: MockModel<any> = new MockModel<any>();
