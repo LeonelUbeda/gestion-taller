@@ -1,17 +1,19 @@
 import { Op } from './Operadores'
-export class MockModel<T> {
-    private _results: T[] = []
-    public addResults(array, ...spread){
-        if (spread.length > 0) {
-            this._results = [array, ...spread]
-        } else {
-            this._results = array
-        }
+export class MockModel{
+    private static _resultados = []
+    private static _nombreTabla = ''
+    private static _belongsTo = []
+    private static _hasMany = []
+    private static _hasOne = []
+    private static _pk = ''
+    private static _modelo = {}
+    private static _sequelize
+
+    public static init(estructura, { sequelize, modelName}) {
+        
     }
-    public getResult(): T[] {
-        return this._results
-    }
-    private handleOperaciones(operadores: symbol[], tupla: T, where, llave? ): boolean {
+
+    private static handleOperaciones(operadores: symbol[], tupla, where, llave? ): boolean {
         for (const operador of operadores) {
 
             const condiciones = where[operador]
@@ -74,35 +76,35 @@ export class MockModel<T> {
                     break;
                 }
                 case Op.is: {
-                    return this.handleOperaciones([Op.eq], tupla, where, llave)
+                    return MockModel.handleOperaciones([Op.eq], tupla, where, llave)
                 }
                 case Op.not: {
-                    return this.handleOperaciones([Op.neq], tupla, where, llave)
+                    return MockModel.handleOperaciones([Op.neq], tupla, where, llave)
                 }
                 
             }
         }
     }
 
-    private seleccion(where = {} ){
+    private static seleccion(where = {} ){
         let resultado = []
         const llaves = Object.keys(where)
         const operadores = Object.getOwnPropertySymbols(where)
         const hayLlaves = llaves.length > 0
         const hayOperadores = operadores.length > 0 
         if (!(hayLlaves || hayOperadores)) {
-            resultado = this._results
+            resultado = MockModel._resultados
         } else {
-            resultado = this._results.filter((tupla) => {
+            resultado = MockModel._resultados.filter((tupla) => {
                 let resultadoBooleano = true 
  
                 if (hayOperadores) {
-                    resultadoBooleano = this.handleOperaciones(operadores, tupla, where)
+                    resultadoBooleano = MockModel.handleOperaciones(operadores, tupla, where)
                 }
                 llaves.forEach(llave => {
-                    if (typeof where[llave] === 'object') {
+                    if (typeof where[llave] === 'object' ) {
                         const operaciones = Object.getOwnPropertySymbols(where[llave])
-                        resultadoBooleano = this.handleOperaciones(operaciones, tupla, where[llave],llave)
+                        resultadoBooleano = MockModel.handleOperaciones(operaciones, tupla, where[llave],llave)
                     } else if (tupla[llave] !== where[llave]) {
                         resultadoBooleano = false
                     }
@@ -116,7 +118,7 @@ export class MockModel<T> {
         return resultado
     }
 
-    private proyeccion(atributos: string[], seleccion: any[]) {
+    private static proyeccion(atributos: string[], seleccion: any[]) {
         if (!Array.isArray(atributos)) {
             throw new Error('Atributos Los atributos tienen que ser un array de strings')
         }
@@ -128,10 +130,10 @@ export class MockModel<T> {
             return nuevoObjeto
         })
     }
-    private find(options?){
+    public static findAll(options?){
         if (options) {
-            const {attributes , limit , offset ,where} = options
-            let results = this.seleccion(where)
+            const {attributes , limit , offset ,where , include} = options
+            let results = MockModel.seleccion(where)
             if (offset) {
                 results = results.slice(offset)
             }
@@ -139,19 +141,16 @@ export class MockModel<T> {
                 results = results.slice(0,limit)
             }
             if (attributes) {
-                results = this.proyeccion(attributes, results)
+                results = MockModel.proyeccion(attributes, results)
             }
             return results
         }
-        return this.seleccion()
+        return MockModel.seleccion()
         
     }
-    public findOne(options?) : T[] {
-        const result = options ? this.find(options) :  this.find() 
+    public static findOne(options?)  {
+        const result = this.findAll(options)
         return [ result[0]]
-    }
-    findAll(options?): T[]{
-        return options ? this.find(options) : this.find() 
     }
 
 }
