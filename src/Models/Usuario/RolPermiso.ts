@@ -13,7 +13,8 @@ Rol.init({
     },
     nombre: {
         type: Sequelize.STRING(30),
-        allowNull: false
+        allowNull: false,
+        unique: true
     }
 }, {
     sequelize: database,
@@ -61,7 +62,8 @@ RolPermiso.init({
 Permiso.belongsToMany(Rol, {
     through: {
         model: RolPermiso
-    }
+    },
+    foreignKey: 'permisoId'
 })
 
 
@@ -69,6 +71,7 @@ Rol.belongsToMany(Permiso, {
     through: {
         model: RolPermiso
     },
+    foreignKey: 'rolId'
     
 })
 

@@ -11,6 +11,7 @@ const app = express();
 
 // Importando rutas
 import RutaCliente from './Routes/Cliente'
+import RutaRolPermiso from './Routes/Usuario/RolPermiso'
 import RutaAutenticacion from './Routes/Autenticacion'
 import RutaUsuario from './Routes/Usuario'
 import RutaRol from './Routes/Rol'
@@ -20,11 +21,11 @@ app.use(json())
 
 // Rutas
 app.use('/api/cliente', /*verificarLogin,*/ RutaCliente)
-app.use('/api/auth',     RutaAutenticacion)
-app.use('/api/usuario',  RutaUsuario )
-app.use('/api/rol',      RutaRol)
-app.use('/api/permiso',  RutaPermiso)
-
+app.use('/api/auth',        RutaAutenticacion)
+app.use('/api/usuario',     RutaUsuario )
+app.use('/api/rol',         RutaRol)
+app.use('/api/permiso',     RutaPermiso)
+app.use('/api/rolpermiso',  RutaRolPermiso)
 
 
 
@@ -32,7 +33,7 @@ app.use('/api/permiso',  RutaPermiso)
 
 
 // Para eliminar y crear la base de datos
-//database.sync({force: true}); 
+//database.sync({force: true})
 
 
 
