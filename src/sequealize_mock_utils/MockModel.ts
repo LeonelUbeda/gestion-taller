@@ -117,9 +117,12 @@ export class MockModel<T> {
     }
 
     private proyeccion(atributos: string[], seleccion: any[]) {
+        if (!Array.isArray(atributos)) {
+            throw new Error('Atributos Los atributos tienen que ser un array de strings')
+        }
         return seleccion.map((tupla) => {
             const nuevoObjeto = {}
-            for (const atributo in atributos) {
+            for (const atributo of atributos) {
                 nuevoObjeto[atributo] = tupla[atributo]
             }
             return nuevoObjeto

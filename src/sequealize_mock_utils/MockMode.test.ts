@@ -1,21 +1,70 @@
 import { MockModel } from './MockModel'
 import { Op } from './Operadores'
+
+test('Mock Model los atributos deben de set un array de strings ', () => {
+    const mockModel: MockModel<any> = new MockModel<any>();
+    const data = [{ id: 1 }, { id: 2 }, { id: 3 }]
+    mockModel.addResults(data);
+   
+    expect(() => mockModel.findAll({
+        attributes: {}
+    })).toThrowError('Los atributos tienen que ser un array de strings')
+})
+
+/* 
+    const mockModel: MockModel<any> = new MockModel<any>();
+   */
+
+test('Mock Model los atributos deben de set un array', () => {
+    const mockModel: MockModel<any> = new MockModel<any>();
+    const data = [
+        { id: 1, userId: 5, comida: 2 }, // userId
+        { id: 2, userId: 6, comida: 6 },
+        { id: 3, userId: 7, comida: 7 },
+        { id: 4, userId: 10, comida: 2 }, //comida
+        { id: 5, userId: 5, comida: 2 },//userId
+        { id: 6, userId: 2, comida: 5 },
+        { id: 7, userId: 6, comida: 2 },//comida
+        { id: 8, userId: 5, comida: 10 }//userId
+    ]
+    const result = [
+        { id: 1,comida: 2 }, // userId
+        { id: 2,comida: 6 },
+        { id: 3,comida: 7 },
+        { id: 4, comida: 2 }, //comida
+        { id: 5,comida: 2 },//userId
+        { id: 6,comida: 5 },
+        { id: 7,comida: 2 },//comida
+        { id: 8,comida: 10 }//userId
+    ] 
+    mockModel.addResults(data);
+
+    expect( mockModel.findAll({
+        attributes: ['id','comida']
+    })).toStrictEqual(result)
+    expect(mockModel.findAll({
+        attributes: ['id', 'comida']
+    }).length).toBe(data.length)
+})
+
 test('Mock Model insertar Mock Data en forma de array', () => {
     const mockModel: MockModel<any> = new MockModel<any>();
-    mockModel.addResults([{ id: 1 }, { id: 2 }, { id: 3 }]);
-    expect(mockModel.getResult().length).toBe(3)
-})
-test('Mock Model insertar Mock Data como varios argumentos', () => {
-    const mockModel: MockModel<any> = new MockModel<any>();
-    mockModel.addResults({ id: 1 }, { id: 2 }, { id: 3 });
-    expect(mockModel.getResult().length).toBe(3)
+    const data = [{ id: 1 }, { id: 2 }, { id: 3 }]
+    mockModel.addResults(data);
+    const result = mockModel.getResult()
+    expect(result).toStrictEqual(data)
+    expect(result.length).toBe(3)
 })
 
 test('Mock Model seleccionar un elemento del MockData', () => {
     const mockModel: MockModel<any> = new MockModel<any>();
-    mockModel.addResults({ id: 1 }, { id: 2 }, { id: 3 });
+    const data = [{ id: 1 }, { id: 2 }, { id: 3 }]
+        mockModel.addResults(data);
 
-    expect(mockModel.findOne().length).toBe(1)
+    const result = mockModel.findOne()
+    expect(Array.isArray(result)).toBeTruthy()
+    expect(result).toStrictEqual([data[0]])
+    expect(result.length).toBe(1)
 })
 
 
@@ -116,7 +165,6 @@ test('Mock Model puede filtrar con un or logico matches', () => {
                 {userId: 5},
                 {comida: 2}
             ]
-        
         }
     })
     expect(result.length).toBe(5)

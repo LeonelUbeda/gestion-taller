@@ -19,7 +19,8 @@ Usuario.init({
         type: Sequelize.STRING(50)
     },
     contrasena: {
-        type: Sequelize.STRING(64)
+        type: Sequelize.STRING(64),
+        allowNull: false
     }
 }, {
     sequelize: database,

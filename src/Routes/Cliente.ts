@@ -4,13 +4,14 @@ const router = Router();
 
 
 // -------------------- Controladores --------------------
-import {ClienteTodos, ClienteID, ClienteNuevo, ClienteEliminar, telefonoClienteEliminar, telefonoClienteNuevo, telefonoClienteTodos, telefonoClienteActualizar, telefonoBuscar} from '../Controllers/cliente.controller';
+import {ClienteTodos, clienteActualizar, ClienteID, ClienteNuevo, ClienteEliminar, telefonoClienteEliminar, telefonoClienteNuevo, telefonoClienteTodos, telefonoClienteActualizar, telefonoBuscar} from '../Controllers/cliente.controller';
 
 
 
 
 
 // -------------------- Rutas Clientes --------------------
+
 router.get('/', async (req: Request, res: Response) => {
     const consulta = req.query
     try {
@@ -33,7 +34,7 @@ router.get('/:id',/* verificarPermiso('managerrr', 5) , */ async (req: Request, 
 });
 
 router.post('/', async (req: Request, res: Response)  => {
-    const { ...infoCliente } = req.body
+    const infoCliente = req.body
     try {
         const respuesta = await ClienteNuevo(infoCliente)
         res.status(205).json(respuesta)
@@ -41,6 +42,20 @@ router.post('/', async (req: Request, res: Response)  => {
         res.status(400).json({mensaje: 'Error'})
     }
 });
+
+
+
+router.put('/:id', async(req: Request, res: Response ) => {
+    const elemento = req.body
+    const { id } = req.params
+    try {
+        const respuesta = await clienteActualizar({id, ...elemento })
+        res.status(200).json(respuesta)
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({mensaje: 'Error'})
+    }
+})
 
 router.delete('/:id', async (req: Request, res: Response ) => {
     const { id } = req.params
@@ -63,19 +78,6 @@ router.delete('/:id', async (req: Request, res: Response ) => {
 
 
 //  Envia todos los telefonos de un determinado cliente
-router.get('/:id/telefono', async(req: Request, res: Response ) => {
-    const { id } = req.params
-    try {
-        const respuesta = await telefonoClienteTodos({ID_Cliente: id})
-        res.status(200).json(respuesta)
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({mensaje: 'Error'})
-    }
-})
-
-
-
 router.get('/:id/telefono', async(req: Request, res: Response ) => {
     const { id } = req.params
     try {
