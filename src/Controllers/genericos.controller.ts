@@ -1,11 +1,12 @@
 
-export const factoryModelTodos = ({ modelo }) =>  {  // Solo para busquedas de Where x = y and ... and ...
+export const factoryModelTodos = ({ modelo,  include = [] }) =>  {  // Solo para busquedas de Where x = y and ... and ...
     return async ({ limite = '10', offset = '0', ...busqueda }) => {
         try {
             const respuesta = await modelo.findAll({
                 where: {...busqueda},
                 limit: parseInt(limite),
-                offset: parseInt(offset)
+                offset: parseInt(offset),
+                include
             });
             return respuesta
         } catch (error) {

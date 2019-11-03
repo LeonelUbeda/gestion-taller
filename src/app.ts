@@ -9,24 +9,27 @@ dotenv.config()
 const app = express();
 
 
-// Importando rutas
+// -------------------- Importando rutas --------------------
+
 import RutaCliente from './Routes/Cliente'
-import RutaRolPermiso from './Routes/Usuario/RolPermiso'
 import RutaAutenticacion from './Routes/Autenticacion'
 import RutaUsuario from './Routes/Usuario'
 import RutaRol from './Routes/Rol'
 import RutaPermiso from './Routes/Permiso'
-// Middlewares
+import RutaRolPermiso from './Routes/Usuario/RolPermiso'
+import RutaDatosDePrueba from './Routes/DatosDePrueba/Main'
+
+// -------------------- Midlewares --------------------
 app.use(json())
 
-// Rutas
+// -------------------- Ruras --------------------
 app.use('/api/cliente', /*verificarLogin,*/ RutaCliente)
 app.use('/api/auth',        RutaAutenticacion)
 app.use('/api/usuario',     RutaUsuario )
 app.use('/api/rol',         RutaRol)
 app.use('/api/permiso',     RutaPermiso)
 app.use('/api/rolpermiso',  RutaRolPermiso)
-
+app.use('/api/datosdeprueba', RutaDatosDePrueba)
 
 
 
@@ -37,7 +40,7 @@ app.use('/api/rolpermiso',  RutaRolPermiso)
 
 
 
-// Verificar que se conectó a la base de datos exitosamente 
+// -------------------- Verificar DB --------------------
 database.authenticate()
 .then(() => console.log('Conectado a la base de datos'))
 .catch(error => console.log(error))
