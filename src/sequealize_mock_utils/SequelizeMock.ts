@@ -5,6 +5,7 @@ export class SequelizeMock {
     static STRING= (length) => (val) => typeof val === 'string' && val.length < length
     static ENUM= ({ values }) => (val) => values.include(val)
     static DATE = (val) => typeof val === 'string' && true
+    static TINYINT = (val) => SequelizeMock.INTEGER(val) && val < 256
     constructor() {
         this._dataset = {}
     }
@@ -23,7 +24,7 @@ export class SequelizeMock {
 
     getTable(tabla: string) {
         const tablaResultado = this._dataset[tabla]
-        if (!tablaResultado ) throw new Error('La tabla no existe en el dataset')
+        if (!tablaResultado) throw new Error('La tabla no existe en el dataset')
         return tablaResultado
     }
 
