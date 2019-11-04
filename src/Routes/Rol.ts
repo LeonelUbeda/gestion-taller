@@ -4,7 +4,8 @@ const router = Router();
 
 
 // -------------------- Controladores --------------------
-import {rolNuevo, rolTodos, rolId, rolEliminar, rolActualizar} from '../Controllers/Usuario/rol.controller'
+import {rolNuevo, rolTodos, rolId, rolEliminar, rolActualizar, rolPermiso} from '../Controllers/Usuario/rol.controller'
+import { rolPermisoTodos } from '../Controllers/Usuario/rolpermiso.controller';
 
 
 
@@ -20,6 +21,9 @@ router.get('/', async (req: Request, res: Response) => {
         res.status(400).json({mensaje: 'Error'})
     }
 });
+
+
+
 
 
 router.get('/:id', async (req: Request, res: Response) => {
@@ -68,6 +72,18 @@ router.delete('/:id', async (req: Request, res: Response) => {
         
     }
 })
+
+
+
+router.get('/:id/permisos', async (req: Request, res: Response) => {
+    const { id } = req.params
+    try {
+        const resultado = await rolPermiso({id})
+        res.status(200).json(resultado)
+    } catch (error) {
+        res.status(400).json({mensaje: 'Error'})
+    }
+});
 
 
 export default router;

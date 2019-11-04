@@ -34,7 +34,7 @@ router.get('/:id',/* verificarPermiso('managerrr', 5) , */ async (req: Request, 
 });
 
 router.post('/', async (req: Request, res: Response)  => {
-    const { ...infoCliente } = req.body
+    const infoCliente = req.body
     try {
         const respuesta = await ClienteNuevo(infoCliente)
         res.status(205).json(respuesta)
