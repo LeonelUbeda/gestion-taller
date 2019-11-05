@@ -271,12 +271,8 @@ test('Estoy quedando crazy',()=>
                 model: RolPermiso
             }
         })  
-    console.log(RolPermiso._hasMany)
-    console.log(RolPermiso._belongsToMany)
-    console.log(Rol)
-    console.log(Rol._belongsToMany['Permiso'])
         const result =  Rol.findAll({
             include: [{model: Permiso}]
         })
-        console.log(result)
+        console.log(JSON.stringify(result))
     })
