@@ -28,7 +28,7 @@ const generico = ({modelo, accion, include = []}) => {
             const elemento = req.body;
             const modeloActualizar = factoryModelActualizarId({modelo})
             try {
-                const resultado = await factoryModelActualizarId({id, ...elemento})
+                const resultado = await modeloActualizar({id, ...elemento})
                 res.status(201).json(resultado)
             } catch (error) {
                 res.status(400).json({mensaje: 'Error'})
