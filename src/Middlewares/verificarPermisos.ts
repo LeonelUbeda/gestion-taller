@@ -24,8 +24,8 @@
                     nombre: 'mecanico',
                     RolPermiso: { 
                         nivelAcceso: 3, 
-                        PermisoId: 1, 
-                        RolId: 1 
+                        permisoId: 1, 
+                        rolId: 1 
                     } 
                 },
                 { 
@@ -33,8 +33,8 @@
                     nombre: 'Manager',
                     RolPermiso: { 
                         nivelAcceso: 4, 
-                        PermisoId: 2, 
-                        RolId: 1 
+                        permisoId: 2, 
+                        rolId: 1 
                     } 
                 }
             ] 
