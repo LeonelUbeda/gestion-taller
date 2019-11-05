@@ -45,7 +45,7 @@ export const dataset = {
         nombre : 'clientes'
         },
         {
-            id: 1,
+            id: 2,
             nombre: 'usuarios'
         },
         {
@@ -56,19 +56,16 @@ export const dataset = {
     ,
     'rolpermiso': [
         {
-            id: 1,
             nivelAcceso: 3,
             permisoId: 1,
             rolId: 1
         },
         {
-            id: 2,
             nivelAcceso: 3,
             permisoId: 2,
             rolId: 1
         },
         {
-            id: 1,
             nivelAcceso: 1,
             permisoId: 1,
             rolId: 2

@@ -163,8 +163,49 @@ export class MockModel{
             if (attributes) {
                 results = this.proyeccion(attributes, results)
             }
-            if (include) {
-                
+            if (include ) {
+                for (const objetoIncluir of include) {
+                    if (this._belongsToMany[objetoIncluir.model.name]) {
+                        const asociacion = this._belongsToMany[objetoIncluir.model.name]
+                        const foreignKeyEstaTabla = asociacion.foreignKey
+                        console.log(foreignKeyEstaTabla)
+                        const laOtraTablaEstaAsociada = asociacion.modelo._belongsToMany[this.name]
+                        if (!laOtraTablaEstaAsociada) throw new Error()
+                        const foreignKeyTablaAIncluir = laOtraTablaEstaAsociada.foreignKey
+                        const modeloAUnir = objetoIncluir.model
+                        const tablaAUnir = this[`get${modeloAUnir.name}`]()
+                        console.log(asociacion.through.model.name)
+                        const tablaIntermedia = this[`get${asociacion.through.model.name}`]()
+                        console.log(this[`get${asociacion.through.model.name}`])
+                        console.log(tablaIntermedia)
+                        results = results.map((tupla) => {
+                            const nuevaTupla = tupla 
+                            nuevaTupla[asociacion.as] = []
+                            for (const tuplaTablaIntermedia of tablaIntermedia) {
+
+                                for (const tuplaTablaAsociada of tablaAUnir) {
+
+                                    if (tuplaTablaIntermedia[foreignKeyEstaTabla] === tupla[this._pk]
+                                        && tuplaTablaIntermedia[foreignKeyTablaAIncluir] === tuplaTablaAsociada[modeloAUnir._pk]) {
+                                        nuevaTupla[asociacion.as].push(tuplaTablaAsociada) 
+                                        }
+                                
+                                }
+                            
+                            }
+                            return nuevaTupla
+                        })
+                    }
+                    if (this._belongsTo[objetoIncluir.model.name]) {
+
+                    }
+                    if (this._hasOne[objetoIncluir.model.name]) {
+
+                    }
+                    if (this._hasMany[objetoIncluir.model.name]) {
+
+                    }
+                }
             }
             return results
         }
@@ -191,12 +232,7 @@ export class MockModel{
         }
 
         if (!modeloEnBelongsTo) {
-            const contenido = { modelo, ...opciones }
-            this._belongsToMany[modelo.name] = contenido
-            const nuevoAtributo = modelo.name.toLowerCase() + (modelo._pk.charAt(0).toUpperCase() + modelo._pk.slice(1))
-            const type = modelo._modelo[modelo._pk].type
-            this._modelo[nuevoAtributo] = { type }
-            modelo.hasOne(this)
+          
         }
     }
     public static hasOne(modelo, opciones) {
@@ -209,17 +245,7 @@ export class MockModel{
         })
 
         if (!modeloEnHas) {
-            const nombreModelo = modelo.name
-            const opcionesUtilisadas = {
-                as: nombreModelo.toLowerCase(),
-                ...opciones
-            }
-            const contendio = { modelo, ...opcionesUtilisadas }
-            this._hasMany.push(contendio)
-            this[`add${nombreModelo}`] = (objeto) => console.log(objeto)
-            this[`remove${nombreModelo}`] = (condicion) => console.log(condicion)
-            this[`get${nombreModelo}`] = () => console.log('Obteniendo Data ...')
-            modelo._belongsTo(this)
+       
         }
     }
     public static hasMany(modelo, opciones: OpcionesAsociacion ) {
@@ -235,39 +261,44 @@ export class MockModel{
        
         // Si no esta lo agrega
         if (!modeloEnHasMany) {
-            const nombreModelo = modelo.name
-            const opcionesUtilisadas = {
-                as: nombreModelo.toLowerCase(),
-                ...opciones
-            }
-            const contendio = { modelo, ...opcionesUtilisadas }
-            this._hasMany.push(contendio)
-            this[`add${nombreModelo}`] = (objeto) => console.log(objeto)
-            this[`remove${nombreModelo}`] = (condicion) => console.log(condicion)
-            this[`get${nombreModelo}`] = () => console.log('Obteniendo Data ...')
-            modelo.belongsToMany(this)
         }
       
 
     }
+    // Asosiacion Muchos Muchos
     public static belongsToMany(modelo, opciones) {
-        // Lo mismo que el belongs to
+       // Me aseguro que no se repita la asosiacion muchos muchos
         let modeloEnBelongsTo = false
         if (this._belongsToMany[modelo.name]) {
             modeloEnBelongsTo = true
         }
         if (!modeloEnBelongsTo) {
-            const contenido = { modelo, ...opciones }
-            this._belongsToMany[modelo.name] = contenido
-            const nuevoAtributo = modelo.name.toLowerCase() + (modelo._pk.charAt(0).toUpperCase() + modelo._pk.slice(1))
-            const type = modelo._modelo[modelo._pk].type
-            this._modelo[nuevoAtributo] = { type }
-            modelo.hasMany(this)
-       }
+           if( !opciones.through ) throw new Error('through requerido')
+            const nombreModelo = modelo.name
+            const thisPk = modelo._pk
+            const llaveForanea =  this.name.toLowerCase() + thisPk.charAt(0).toUpperCase() + thisPk.slice(1)
+            const options = Object.assign({
+                as: nombreModelo.toLowerCase(), // como se muestra en el Target 
+                foreignKey: llaveForanea, // llave con la que se refieren al source(this) en la tabla Intermedia
+            }, opciones || {})
+            const tablaIntermedia = opciones.through.model
+            modelo[`get${tablaIntermedia.name}`] = (opciones) => tablaIntermedia.findAll(opciones)
+            modelo[`get${this.name}`] = (opciones) => this.findAll(opciones)
+            this._belongsToMany[nombreModelo] = {
+                modelo,
+                ...options
+            }
+            console.log(`${this.name}._belongsToMany[${nombreModelo} = {${JSON.stringify(this._belongsToMany[nombreModelo])}`)
+        }
+      
+
+    }
+
+
+        
        
 
     }
 
-}
 
 

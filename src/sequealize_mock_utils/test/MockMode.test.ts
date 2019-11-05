@@ -231,25 +231,23 @@ test('Mock Model puede filtrar con operador greater logico matches', () => {
     expect(result).toStrictEqual(dataset.cliente.slice(1))
 })    
 
-
+/*
 test('Mock Model asociacion belongTo', () => {
     Rol.belongsToMany(Permiso, {
         through: {
             model: RolPermiso
         }
   })
- 
-    expect(Rol._belongsToMany).toStrictEqual({
-        'Permiso': {
+    expect(Rol._belongsToMany['Permiso']).toStrictEqual({
             modelo: Permiso,
             through: {
                 model: RolPermiso
             } 
-        }
     })
     expect(Rol._modelo['permisoId']).toStrictEqual(
         {
-            type: SequelizeMock.INTEGER
+            type: SequelizeMock.INTEGER,
+            foreignKey: true
         }
     )
     expect(Permiso._hasMany).toStrictEqual([{ modelo: Rol , as: 'rol'}])
@@ -258,3 +256,27 @@ test('Mock Model asociacion belongTo', () => {
     expect(['addRol','removeRol','getRol'].every((valor)=> llavesPermiso.includes(valor)))
 
 })    
+*/
+
+
+test('Estoy quedando crazy',()=>
+    {
+        Rol.belongsToMany(Permiso, {
+            through: {
+                model: RolPermiso
+            }
+        })
+        Permiso.belongsToMany(Rol, {
+            through: {
+                model: RolPermiso
+            }
+        })  
+    console.log(RolPermiso._hasMany)
+    console.log(RolPermiso._belongsToMany)
+    console.log(Rol)
+    console.log(Rol._belongsToMany['Permiso'])
+        const result =  Rol.findAll({
+            include: [{model: Permiso}]
+        })
+        console.log(result)
+    })
