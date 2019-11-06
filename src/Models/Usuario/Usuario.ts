@@ -11,6 +11,10 @@ Usuario.init({
         allowNull: false,
         primaryKey: true
     },
+    rolId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
     nombre: {
         type: Sequelize.STRING(50),
         allowNull: false

@@ -39,7 +39,7 @@ app.use('/api/servicio/categoria', RutaCategoriaServicio)
 
 
 // Para eliminar y crear la base de datos
-//database.sync(/*{force: true}*/)
+//database.sync({force: true})
 
 
 

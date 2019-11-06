@@ -57,6 +57,17 @@ const manejadorGenerico = ({modelo, accion, include = []}) => {
                 res.status(400).json({mensaje: 'Error'})
                 
             }
+        },
+        eliminarPorCondicion: async (req: Request, res: Response) => {
+            const condiciones = req.params
+            const modeloEliminar = factoryModelEliminarCondicionAnd({modelo})
+            try {
+                const resultado = await modeloEliminar({...condiciones})
+                res.status(200).json(resultado)
+            } catch (error) {
+                res.status(400).json({mensaje: 'Error'})
+                
+            }
         }
         
         
@@ -72,6 +83,7 @@ manejadorGenerico.CREAR =               'crear'
 manejadorGenerico.ACTUALIZAR =          'actualizar'
 manejadorGenerico.ELIMINAR =            'eliminar'
 manejadorGenerico.ELIMINAR_POR_ID =     'eliminarPorId'
+manejadorGenerico.ELIMINAR_POR_CONDICION = 'eliminarPorCondicion'
 manejadorGenerico.ACTUALIZAR_POR_ID =   'actualizarPorId'
 
 

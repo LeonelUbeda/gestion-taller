@@ -25,11 +25,7 @@ export const factoryModelTodos = ({ modelo,  include = [] }) =>  {  // Solo para
         for(let propiedad in busqueda){
 
             busquedaSubstring[propiedad] = (propiedad.slice(propiedad.length-2) === 'Id' || propiedad === 'id') ? busqueda[propiedad] : { [Op.substring] : busqueda[propiedad] }  
-            /*if(propiedad !== 'id'){
-                busquedaSubstring[propiedad] = { [Op.substring] : busqueda[propiedad] }
-            }else{
-                busquedaSubstring[propiedad] = busqueda[propiedad]
-            }*/
+
         }
         try {
             const respuesta = await modelo.findAll({
