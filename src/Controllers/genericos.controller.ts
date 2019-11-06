@@ -41,6 +41,22 @@ export const factoryModelNuevo = ({ modelo }) => {
     }
 }
 
+/* WIP no se si sea necesario la verdad, luego de terminar lo de inventario veo si la implemento
+// Recibe los campos de la tabla principal y la de su tabla de movimiento. 
+export const factoryModelNuevoMovimiento = ({ modelo, modeloMovimiento, llaveForanea = "string" }) => {
+    return async ( elemento: object, elementoMovimiento: object ) => {
+        try {
+            const respuesta = await modelo.build({ ...elemento })
+            const trasanccionMovimiento = await modeloMovimiento.build({ ...elementoMovimiento })
+        }
+        catch (error) {
+            console.log(error)
+            throw error
+        }
+    }
+}
+*/
+
 // Recibe un id y los campos a actualizar con sus respectivos valores
 // {id: 4, nombre: 'Ricardo',  apellido: 'Juancho'}
 // Se tomará nombre y apellido como parte de los campos a actualizar y el ID como la condición (where)
@@ -67,6 +83,27 @@ export const factoryModelActualizarPorCampo = ({ modelo }) => {
         try {
             // Esto hace un: 
             // UPDATE modelo SET camposActualizar WHERE campo = valor
+            const respuesta = await modelo.update({ ...camposActualizar }, {where: { ...condicion } })
+            return respuesta
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
+    }
+}
+
+// El mismo factoryModelPorCampo, con la diferencia es que tiene un campo restriccion.
+// Esto la verdad creo que puede incluirse en la funcion anterior, dejando el campo
+// restriccion con un default vacio.
+// No se si deberia de la restriccion tendria que llamarse desde el controlador o la ruta.
+export const factoryModelActualizarPorCampoRestriccion = ({ modelo }) => {
+    return async (camposActualizar: object, condicion: object, restricciones: string[]) => {
+        try {
+            for (let restriccion of restricciones ) {
+                if (camposActualizar.hasOwnProperty(restriccion)) {
+                    throw new Error("Placeholder") // Hay que crear un error nuevo para esto, despues se hace
+                }
+            }
             const respuesta = await modelo.update({ ...camposActualizar }, {where: { ...condicion } })
             return respuesta
         } catch (error) {
