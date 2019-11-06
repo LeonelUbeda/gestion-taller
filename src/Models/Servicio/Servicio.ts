@@ -5,9 +5,9 @@ import Categoria from './Categoria'
 // No se puede utilizar el database.define porque typescript no puede crear una clase a partir de esa funcion.
 // Mas informacion https://sequelize.org/master/manual/typescript
 
-class Servicios extends Model{
+class Servicio extends Model{
 }
-Servicios.init({
+Servicio.init({
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -26,10 +26,9 @@ Servicios.init({
     }
 }, {
     sequelize: database,
-    modelName: 'servicios'
+    modelName: 'servicio'
 })
 
-Servicios.belongsTo(Categoria, {foreignKey: 'categoriaId', targetKey: 'id'})
+Servicio.belongsTo(Categoria, {foreignKey: 'categoriaId', targetKey: 'id'})
 
-
-export default Servicios;
+export default Servicio;
