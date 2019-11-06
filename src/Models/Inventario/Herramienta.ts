@@ -4,7 +4,9 @@ import Usuario from '../Usuario/Usuario'
 
 
 
-class Herramienta extends Model{}
+class Herramienta extends Model{
+    id: number;
+}
 Herramienta.init({
     id: {
         type: Sequelize.INTEGER,
