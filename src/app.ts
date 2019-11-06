@@ -18,7 +18,8 @@ import RutaRol from './Routes/Rol'
 import RutaPermiso from './Routes/Permiso'
 import RutaRolPermiso from './Routes/Usuario/RolPermiso'
 import RutaDatosDePrueba from './Routes/DatosDePrueba/Main'
-
+import RutaCategoriaServicio from './Routes/Servicio/Categoria'
+import RutaServicio from './Routes/Servicio/Servicio'
 // -------------------- Midlewares --------------------
 app.use(json())
 
@@ -30,13 +31,15 @@ app.use('/api/rol',         RutaRol)
 app.use('/api/permiso',     RutaPermiso)
 app.use('/api/rolpermiso',  RutaRolPermiso)
 app.use('/api/datosdeprueba', RutaDatosDePrueba)
+app.use('/api/servicio/',   RutaServicio)
+app.use('/api/servicio/categoria', RutaCategoriaServicio)
 
 
 
 
 
 // Para eliminar y crear la base de datos
-//database.sync({force: true})
+//database.sync(/*{force: true}*/)
 
 
 
@@ -45,7 +48,8 @@ database.authenticate()
 .then(() => console.log('Conectado a la base de datos'))
 .catch(error => console.log(error))
 
+import Usuario from './Models/Usuario/Usuario'
 
-
+console.log(Usuario)
 
 export default app;

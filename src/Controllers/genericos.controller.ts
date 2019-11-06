@@ -1,4 +1,6 @@
+import {Op} from 'sequelize'
 
+/*
 export const factoryModelTodos = ({ modelo,  include = [] }) =>  {  // Solo para busquedas de Where x = y and ... and ...
     return async ({ limite = '10', offset = '0', ...busqueda }) => {
         try {
@@ -15,6 +17,35 @@ export const factoryModelTodos = ({ modelo,  include = [] }) =>  {  // Solo para
         }
     }
 }
+**/
+export const factoryModelTodos = ({ modelo,  include = [] }) =>  {  // Solo para busquedas de Where x = y and ... and ...
+    return async ({ limite = '10', offset = '0', ...busqueda }) => {
+        let busquedaSubstring = {}
+        
+        for(let propiedad in busqueda){
+
+            busquedaSubstring[propiedad] = (propiedad.slice(propiedad.length-2) === 'Id' || propiedad === 'id') ? busqueda[propiedad] : { [Op.substring] : busqueda[propiedad] }  
+            /*if(propiedad !== 'id'){
+                busquedaSubstring[propiedad] = { [Op.substring] : busqueda[propiedad] }
+            }else{
+                busquedaSubstring[propiedad] = busqueda[propiedad]
+            }*/
+        }
+        try {
+            const respuesta = await modelo.findAll({
+                where: busquedaSubstring,
+                limit: parseInt(limite),
+                offset: parseInt(offset),
+                include
+            });
+            return respuesta
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
+    }
+} 
+
 
 export const factoryModelID = ({ modelo }) => {
     return async (id : number) => {
