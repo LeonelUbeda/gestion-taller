@@ -1,4 +1,4 @@
-import { factoryModelNuevo, factoryModelTodos, factoryModelActualizarId, factoryModelEliminarCondicionAnd } from './genericos.controller'
+import { factoryModelNuevo, factoryModelTodos, factoryModelActualizarId, factoryModelEliminarCondicionAnd, factoryModelID } from './genericos.controller'
 import {Request, Response} from 'express'
 
 
@@ -16,14 +16,18 @@ const manejadorGenerico = ({modelo, accion, include = []}) => {
         },
         leerId: async (req: Request, res: Response) => {
             const {id} = req.params
-            const modeloTodosId = factoryModelTodos({modelo})
+            const modeloTodosId = factoryModelID({modelo})
             try {
-                const resultado = await modeloTodosId({id})
+                const resultado = await modeloTodosId(parseInt(id))
                 res.status(200).json(resultado)
             } catch (error) {
                 res.status(400).json({mensaje: 'Error'})
                 
             }
+        },
+        leerAny: async (req: Request, res: Response) => {
+            const identificador = req.params
+            const modeloTodosIdentificador = factoryModelIdentificador()
         },
         crear: async (req: Request, res: Response) => {
             const elemento = req.body
@@ -37,11 +41,11 @@ const manejadorGenerico = ({modelo, accion, include = []}) => {
             }
         },
         actualizarPorId: async (req: Request, res: Response) => {
-            const { id } = req.params
+            const identificador = req.params
             const elemento = req.body;
             const modeloActualizar = factoryModelActualizarId({modelo})
             try {
-                const resultado = await modeloActualizar({id, ...elemento})
+                const resultado = await modeloActualizar({...identificador, ...elemento})
                 res.status(201).json(resultado)
             } catch (error) {
                 res.status(400).json({mensaje: 'Error'})
@@ -58,15 +62,15 @@ const manejadorGenerico = ({modelo, accion, include = []}) => {
                 
             }
         },
+        // Elimina por condiciones que estan en los parametros
         eliminarPorCondicion: async (req: Request, res: Response) => {
             const condiciones = req.params
             const modeloEliminar = factoryModelEliminarCondicionAnd({modelo})
             try {
-                const resultado = await modeloEliminar({...condiciones})
+                const resultado = await modeloEliminar(condiciones)
                 res.status(200).json(resultado)
             } catch (error) {
                 res.status(400).json({mensaje: 'Error'})
-                
             }
         }
         

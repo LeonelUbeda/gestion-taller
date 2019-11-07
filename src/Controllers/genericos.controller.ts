@@ -1,23 +1,5 @@
 import {Op} from 'sequelize'
 
-/*
-export const factoryModelTodos = ({ modelo,  include = [] }) =>  {  // Solo para busquedas de Where x = y and ... and ...
-    return async ({ limite = '10', offset = '0', ...busqueda }) => {
-        try {
-            const respuesta = await modelo.findAll({
-                where: {...busqueda},
-                limit: parseInt(limite),
-                offset: parseInt(offset),
-                include
-            });
-            return respuesta
-        } catch (error) {
-            console.log(error)
-            throw error
-        }
-    }
-}
-**/
 export const factoryModelTodos = ({ modelo,  include = [] }) =>  {  // Solo para busquedas de Where x = y and ... and ...
     return async ({ limite = '10', offset = '0', ...busqueda }) => {
         let busquedaSubstring = {}
@@ -43,10 +25,10 @@ export const factoryModelTodos = ({ modelo,  include = [] }) =>  {  // Solo para
 } 
 
 
-export const factoryModelID = ({ modelo }) => {
+export const factoryModelID = ({ modelo,  include = []  }) => {
     return async (id : number) => {
         try {
-            const respuesta = await modelo.findOne({ where: { id } })
+            const respuesta = await modelo.findOne({ where: { id } , include})
             return respuesta
         } catch (error) {
             console.log(error)
