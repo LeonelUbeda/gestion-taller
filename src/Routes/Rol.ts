@@ -5,51 +5,23 @@ const router = Router();
 
 // -------------------- Controladores --------------------
 import {rolNuevo, rolTodos, rolId, rolEliminar, rolActualizar, rolPermiso} from '../Controllers/Usuario/rol.controller'
-import { rolPermisoTodos } from '../Controllers/Usuario/rolpermiso.controller';
+import manejadorGenerico from '../Controllers/manejadorGenerico';
+import { Rol, Permiso } from '../Models/Usuario/RolPermiso';
 
 
 
 // -------------------- Rutas Rol --------------------
 
 // Ruta generica para buscar roles
-router.get('/', async (req: Request, res: Response) => {
-    const consulta = req.query
-    try {
-        const resultado = await rolTodos(consulta)
-        res.status(200).json(resultado)
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }
-});
+router.get('/', manejadorGenerico({modelo: Rol, accion: manejadorGenerico.LEER}));
 
-
-
-
-
-router.get('/:id', async (req: Request, res: Response) => {
-    const {id} = req.params
-    try {
-        const resultado = await rolId(parseInt(id))
-        res.status(200).json(resultado)
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }
-});
-
+router.get('/:id', manejadorGenerico({modelo: Rol, accion: manejadorGenerico.LEER_POR_ID}));
 
 // Crear nuevo Rol.     Obligatorio: nombre
-router.post('/', async (req: Request, res: Response) => {
-    const elemento = req.body
-    try {
-        const resultado = await rolNuevo({...elemento})
-        res.status(201).json(resultado) 
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }
-})
-
+router.post('/', manejadorGenerico({modelo: Rol, accion: manejadorGenerico.CREAR}));
 
 // Actualizar un rol.   Obligatorio: id     Opcional: campos a actualizar
+
 router.put('/:id', async (req: Request, res: Response) => {
     const elemento = req.body;
     const { id } = req.params
@@ -62,28 +34,17 @@ router.put('/:id', async (req: Request, res: Response) => {
 })
 
 
-router.delete('/:id', async (req: Request, res: Response) => {
-    const {id} = req.params
-    try {
-        const resultado = await rolEliminar({id})
-        res.status(200).json(resultado)
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-        
-    }
-})
+router.delete('/:id', manejadorGenerico({modelo: Rol, accion: manejadorGenerico.ELIMINAR_POR_ID}))
 
 
 
-router.get('/:id/permisos', async (req: Request, res: Response) => {
-    const { id } = req.params
-    try {
-        const resultado = await rolPermiso({id})
-        res.status(200).json(resultado)
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }
-});
-
+router.get('/:rolId/permisos', manejadorGenerico({
+    modelo: Rol, 
+    accion: manejadorGenerico.LEER , 
+    include: [{
+        model: Permiso, 
+        through: { attributes: ['nivelAcceso'] }
+    }]
+}))
 
 export default router;

@@ -8,7 +8,7 @@ class Telefono extends Model {
 
 
 Telefono.init({
-    ID_Cliente: {
+    clienteId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true
@@ -16,6 +16,7 @@ Telefono.init({
     },
     telefono: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         primaryKey: true
     }
 }, {

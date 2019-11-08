@@ -26,11 +26,8 @@ Cliente.init({
         type: Sequelize.ENUM({
             values:['Persona', 'Empresa']
         })
-    },
-    fechaRegistro: {
-        type: Sequelize.DATE,
-        allowNull: false
     }
+    
 }, {
     sequelize: database,
     modelName: 'cliente'

@@ -1,6 +1,8 @@
 import {Router, Response, Request} from 'express'
 const router = Router();
 
+import manejadorGenerico from '../Controllers/manejadorGenerico'
+import Usuario from '../Models/Usuario/Usuario';
 
 // -------------------- Controladores --------------------
 import {usuarioNuevo, usuarioActualizar, usuarioEliminar, usuarioTodos, usuarioID, usuarioIDRol} from '../Controllers/Usuario/usuario.controller'
@@ -9,14 +11,13 @@ import {usuarioNuevo, usuarioActualizar, usuarioEliminar, usuarioTodos, usuarioI
 // -------------------- Utils --------------------
 import encriptar from '../utils/encriptar'
 
-
-
-
-
-
 // -------------------- Rutas Usuario --------------------
 
+router.get('/',         manejadorGenerico({modelo: Usuario,     accion: manejadorGenerico.LEER}))
+router.get('/:nombre',  manejadorGenerico({modelo: Usuario,     accion: manejadorGenerico.LEER_PARAMETROS})),
+
 // Obtener todos los usuarios
+/*
 router.get('/', async (req: Request, res: Response) => {
     const consulta = req.query
     try {
@@ -37,18 +38,17 @@ router.get('/:usuario', async (req: Request, res: Response) => {
         res.status(400).json({mensaje: 'Error'})
     }
 })
-
+*/
 
 // Crear nuevo Usuario.     Obligatorio: usuario, nombre, rolId.    Opcional: apellido
 router.post('/', async (req: Request, res: Response) => {
+    let {contrasena, usuario, ...elemento} = req.body
 
-    let {usuario, nombre, rolId, apellido, contrasena} = req.body
+    usuario = usuario ? usuario.toLowerCase() : null
+    contrasena = contrasena ? encriptar(contrasena) : null
 
-    if(contrasena){
-        contrasena = encriptar(contrasena)
-    }
     try {
-        const resultado = await usuarioNuevo({ usuario, nombre, rolId, apellido, contrasena })
+        const resultado = await usuarioNuevo({ contrasena , usuario , ...elemento})
         res.status(201).json(resultado)
     } catch (error) {
         res.status(400).json({mensaje: 'Error'})
@@ -57,36 +57,21 @@ router.post('/', async (req: Request, res: Response) => {
 
 // Actualizar un usuario.   Obligatorio: usuario     Opcional: campos a actualizar
 router.put('/:usuario', async (req: Request, res: Response) => {
-    const elemento = req.body;
+    let {contrasena, ...elemento} = req.body;
     const {usuario} = req.params
-    console.log(elemento)
+    
+    contrasena = contrasena ? encriptar(contrasena) : null
  
     try {
-        const resultado = await usuarioActualizar(elemento, {usuario})
+        const resultado = await usuarioActualizar({contrasena, ...elemento}, {usuario})
         res.status(201).json(resultado)
-
     } catch (error) {
         console.log(error)
         res.status(400).json({mensaje: 'Error'})
     }
 })
 
-
-
-
-// Elimina un usuario. Se obtiene el id por los parametros de url
-router.delete('/:id', async (req: Request, res: Response) => {
-    const {id} = req.params
-    
-    try {
-        const resultado = await usuarioEliminar({id})
-        res.status(200).json({mensaje: 'Eliminado'})
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-        
-    }
-})
-
+router.delete('/:usuario', manejadorGenerico({modelo: Usuario, accion: manejadorGenerico.ELIMINAR_POR_CONDICION}))
 
 
 
