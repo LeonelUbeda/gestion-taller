@@ -4,7 +4,6 @@ const router = Router();
 
 
 // -------------------- Controladores --------------------
-import {rolNuevo, rolTodos, rolId, rolEliminar, rolActualizar, rolPermiso} from '../Controllers/Usuario/rol.controller'
 import manejadorGenerico from '../Controllers/manejadorGenerico';
 import { Rol, Permiso } from '../Models/Usuario/RolPermiso';
 

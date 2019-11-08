@@ -42,9 +42,10 @@ const manejadorGenerico = ({modelo, accion, include = []}) => {
         },
         crear: async (req: Request, res: Response) => {
             const elemento = req.body
+            const query = req.params
             const modeloCrear = factoryModelNuevo({modelo})
             try {
-                const resultado = await modeloCrear({...elemento})
+                const resultado = await modeloCrear({...elemento, ...query})
                 res.status(201).json(resultado) 
             } catch (error) {
                 res.status(400).json({mensaje: 'Error'})
