@@ -1,3 +1,6 @@
+// SIN UTILIZAR. BORRAR PROXIMAMENTE
+
+
 import {factoryModelActualizarId, factoryModelNuevo, factoryModelEliminarCondicionAnd, factoryModelTodos, factoryModelID, } from '../genericos.controller'
 import {Permiso} from '../../Models/Usuario/RolPermiso'
 
