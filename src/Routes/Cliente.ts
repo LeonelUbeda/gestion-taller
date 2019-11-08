@@ -56,7 +56,7 @@ router.put('/:clienteId/telefono/:telefono', manejadorGenerico({modelo: Telefono
 
 // Borra un telefono que le pertenece a un cliente
 // Cliente y telefono tienen que ser especificados en los parametros
-router.delete('/:clienteId/telefono/:telefono', manejadorGenerico({modelo: Telefono, accion: manejadorGenerico.ELIMINAR_POR_CONDICION}))
+router.delete('/:clienteId/telefono/:telefono', manejadorGenerico({modelo: Telefono, accion: manejadorGenerico.ELIMINAR_POR_PARAMETROS}))
 
 
 

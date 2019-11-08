@@ -26,7 +26,7 @@ import RutaDatosDePrueba from './Routes/DatosDePrueba/Main'
 import RutaCategoriaServicio from './Routes/Servicio/Categoria'
 import RutaServicio from './Routes/Servicio/Servicio'
 import RutaClasificacionAuto from './Routes/Vehiculo/ClasificacionAuto'
-import RutaModeloVehiculo from './Routes/Vehiculo/Modelo'
+
 // -------------------- Midlewares --------------------
 app.use(json())
 
@@ -42,14 +42,14 @@ app.use('/api/rolpermiso',      RutaRolPermiso)
 app.use('/api/datosdeprueba',   RutaDatosDePrueba)
 app.use('/api/servicios/',              RutaServicio)
 app.use('/api/servicios/categorias',    RutaCategoriaServicio)
-app.use('/api/vehiculos/',              RutaClasificacionAuto)
+app.use('/api/vehiculos/',               RutaClasificacionAuto)
 
 
 
 
 
 // Para eliminar y crear la base de datos
-database.sync(/*{force: true}*/)
+//database.sync(/*{force: true}*/)
 
 // -------------------- Verificar DB --------------------
 database.authenticate()

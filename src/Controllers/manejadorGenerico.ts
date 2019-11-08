@@ -116,11 +116,10 @@ manejadorGenerico.CREAR =               'crear'
 manejadorGenerico.ACTUALIZAR =          'actualizar'
 manejadorGenerico.ELIMINAR =            'eliminar'
 manejadorGenerico.ELIMINAR_POR_ID =     'eliminarPorId'
-manejadorGenerico.ELIMINAR_POR_CONDICION = 'eliminarPorCondicion'
 manejadorGenerico.ACTUALIZAR_POR_PARAMETROS = 'actualizarPorParametros'
 manejadorGenerico.ACTUALIZAR_POR_ID =   'actualizarPorId'
 manejadorGenerico.LEER_PARAMETROS =     'leerParametros'
-
+manejadorGenerico.ELIMINAR_POR_PARAMETROS = 'eliminarPorCondicion'
 export default manejadorGenerico
 
 
