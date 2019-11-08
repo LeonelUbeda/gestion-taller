@@ -7,7 +7,7 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "dev": "nodemon",
-    "build": "tsc",
+    "build": "tsc"
 
   },
   "author": "Leonel Ubeda, Roberto Sanchez, Carlos Dinarte",
