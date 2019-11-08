@@ -13,9 +13,8 @@ import encriptar from '../utils/encriptar'
 
 // -------------------- Rutas Usuario --------------------
 
-router.get('/',     manejadorGenerico({modelo: Usuario,     accion: manejadorGenerico.LEER}))
-router.get('/:nombre',  manejadorGenerico({modelo: Usuario,  accion: manejadorGenerico.LEER_POR_ID}))
-
+router.get('/',         manejadorGenerico({modelo: Usuario,     accion: manejadorGenerico.LEER}))
+router.get('/:nombre',  manejadorGenerico({modelo: Usuario,     accion: manejadorGenerico.LEER_PARAMETROS})),
 
 // Obtener todos los usuarios
 /*
