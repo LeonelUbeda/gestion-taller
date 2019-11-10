@@ -2,64 +2,26 @@ import {Router, Response, Request} from 'express'
 const router = Router();
 // -------------------- Controladores --------------------
 import {permisoNuevo, permisoTodos, permisoId, permisoActualizar, permisoEliminar} from '../Controllers/Usuario/permiso.controller'
+import { Permiso } from '../Models/Usuario/RolPermiso';
+import manejadorGenerico from '../Controllers/manejadorGenerico';
 
 
 
 // -------------------- Rutas Permiso --------------------
-router.get('/', async (req: Request, res: Response) => {
-    const consulta = req.query
-    try {
-        const resultado = await permisoTodos(consulta)
-        res.status(200).json(resultado)
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }
-})
 
-router.get('/:id', async (req: Request, res: Response) => {
-    const { id } = req.params
-    try {
-        const resultado = await permisoId(parseInt(id))
-        res.status(200).json(resultado)
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }                     
-    
-});
+// Obtiene todos los permisos
+router.get('/', manejadorGenerico({modelo: Permiso, accion: manejadorGenerico.LEER}))
 
+// Obtiene un unico permiso
+router.get('/:id', manejadorGenerico({modelo: Permiso, accion: manejadorGenerico.LEER_POR_ID}))
 
+// Crear nuevo Permiso.
+router.put('/:id', manejadorGenerico({modelo: Permiso, accion: manejadorGenerico.ACTUALIZAR_POR_ID}))
 
-router.put('/:id', async (req: Request, res: Response) => {
-    const elemento = req.body
-    const { id } = req.params
-    try {
-        const resultado = await permisoActualizar({ id, ...elemento })
-        res.status(200).json(resultado)
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }
-})
+// Crear nuevo Permiso
+router.post('/', manejadorGenerico({modelo: Permiso, accion: manejadorGenerico.CREAR}))
 
-
-// Crear nuevo Permiso.     Obligatorio: nombre
-router.post('/', async (req: Request, res: Response) => {
-    const elemento = req.body
-    try {
-        const resultado = await permisoNuevo({ ...elemento })
-        res.status(201).json(resultado)
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }
-})
-
-router.delete('/:id', async (req: Request, res: Response ) => {
-    const { id } = req.params
-    try {
-        const resultado = await permisoEliminar({id})
-        res.status(200).json(resultado)
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }
-})
+// Eliminar permiso.
+router.delete('/:id', manejadorGenerico({modelo: Permiso, accion: manejadorGenerico.ELIMINAR_POR_ID}))
 
 export default router;

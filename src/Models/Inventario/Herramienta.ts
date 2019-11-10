@@ -31,7 +31,6 @@ Herramienta.init({
 })
 
 
-
 class Categoria extends Model{}
 Categoria.init({
     id: {

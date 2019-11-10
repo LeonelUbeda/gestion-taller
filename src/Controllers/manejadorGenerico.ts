@@ -42,10 +42,10 @@ const manejadorGenerico = ({modelo, accion, include = []}) => {
         },
         crear: async (req: Request, res: Response) => {
             const elemento = req.body
-            console.log(elemento)
+            const query = req.params
             const modeloCrear = factoryModelNuevo({modelo})
             try {
-                const resultado = await modeloCrear({...elemento})
+                const resultado = await modeloCrear({...elemento, ...query})
                 res.status(201).json(resultado) 
             } catch (error) {
                 res.status(400).json({mensaje: 'Error'})
@@ -116,10 +116,10 @@ manejadorGenerico.CREAR =               'crear'
 manejadorGenerico.ACTUALIZAR =          'actualizar'
 manejadorGenerico.ELIMINAR =            'eliminar'
 manejadorGenerico.ELIMINAR_POR_ID =     'eliminarPorId'
-manejadorGenerico.ELIMINAR_POR_CONDICION = 'eliminarPorCondicion'
+manejadorGenerico.ACTUALIZAR_POR_PARAMETROS = 'actualizarPorParametros'
 manejadorGenerico.ACTUALIZAR_POR_ID =   'actualizarPorId'
 manejadorGenerico.LEER_PARAMETROS =     'leerParametros'
-
+manejadorGenerico.ELIMINAR_POR_PARAMETROS = 'eliminarPorCondicion'
 export default manejadorGenerico
 
 

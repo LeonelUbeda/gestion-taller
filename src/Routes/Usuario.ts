@@ -71,7 +71,7 @@ router.put('/:usuario', async (req: Request, res: Response) => {
     }
 })
 
-router.delete('/:usuario', manejadorGenerico({modelo: Usuario, accion: manejadorGenerico.ELIMINAR_POR_CONDICION}))
+router.delete('/:usuario', manejadorGenerico({modelo: Usuario, accion: manejadorGenerico.ELIMINAR_POR_PARAMETROS}))
 
 
 

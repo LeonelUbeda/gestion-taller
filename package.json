@@ -7,14 +7,12 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "dev": "nodemon",
-    "build": "tsc",
-
+    "build": "tsc"
   },
   "author": "Leonel Ubeda, Roberto Sanchez, Carlos Dinarte",
   "license": "ISC",
   "dependencies": {
     "@types/jsonwebtoken": "^8.3.5",
-    "cloc": "^2.5.0",
     "crypto-js": "^3.1.9-1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
