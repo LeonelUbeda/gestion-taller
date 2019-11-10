@@ -19,22 +19,6 @@ router.post('/', manejadorGenerico({modelo: RolPermiso, accion: manejadorGeneric
 router.put('/rol/:rolId/permiso/:permisoId', manejadorGenerico({modelo: RolPermiso, accion: manejadorGenerico.ACTUALIZAR_POR_PARAMETROS}))
 
 
-// api/rolpermiso/rol/2/permiso/6
-/*
-router.put('/rol/:rolId/permiso/:permisoId', async(req: Request, res: Response ) => {
-    const elemento = req.body
-    const { rolId , permisoId} = req.params
-    try {
-        const respuesta = await rolPermisoActualizar({...elemento}, {rolId, permisoId})
-        res.status(200).json(respuesta)
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({mensaje: 'Error'})
-    }
-})
-
-*/
-// api/rolpermiso/rol/2/permiso/6
 router.delete('/rol/:rolId/permiso/:permisoId', async (req: Request, res: Response ) => {
     const { rolId, permisoId } = req.params
     try {

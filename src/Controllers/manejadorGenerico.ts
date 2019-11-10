@@ -113,26 +113,9 @@ const manejadorGenerico = ({modelo, accion, include = []}) => {
 manejadorGenerico.LEER =                'leer'
 manejadorGenerico.LEER_POR_ID =         'leerId'
 manejadorGenerico.CREAR =               'crear'
-manejadorGenerico.ACTUALIZAR =          'actualizar'
-manejadorGenerico.ELIMINAR =            'eliminar'
 manejadorGenerico.ELIMINAR_POR_ID =     'eliminarPorId'
 manejadorGenerico.ACTUALIZAR_POR_PARAMETROS = 'actualizarPorParametros'
 manejadorGenerico.ACTUALIZAR_POR_ID =   'actualizarPorId'
 manejadorGenerico.LEER_PARAMETROS =     'leerParametros'
 manejadorGenerico.ELIMINAR_POR_PARAMETROS = 'eliminarPorCondicion'
 export default manejadorGenerico
-
-
-
-
-/*
-
-const elemento = req.body;
-    const { id } = req.params
-    try {
-        const resultado = await rolActualizar({id, ...elemento})
-        res.status(201).json(resultado)
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }
-*/

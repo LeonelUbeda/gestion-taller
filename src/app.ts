@@ -42,7 +42,7 @@ app.use('/api/rolpermiso',      RutaRolPermiso)
 app.use('/api/datosdeprueba',   RutaDatosDePrueba)
 app.use('/api/servicios/',              RutaServicio)
 app.use('/api/servicios/categorias',    RutaCategoriaServicio)
-app.use('/api/vehiculos/',               RutaClasificacionAuto)
+app.use('/api/vehiculos/',              RutaClasificacionAuto)
 
 
 

@@ -6,6 +6,7 @@ import manejadorGenerico from '../../Controllers/manejadorGenerico'
 import Marca from '../../Models/Vehiculo/Marca';
 import Modelo from '../../Models/Vehiculo/Modelo';
 import Version from '../../Models/Vehiculo/Version';
+import Tipo from '../../Models/Vehiculo/Tipo';
 // Ruta generica para buscar roles
 
 
@@ -55,6 +56,19 @@ router.get('/versiones',         manejadorGenerico({modelo: Version,     accion:
 router.get('/versiones/:id',     manejadorGenerico({modelo: Version,     accion: manejadorGenerico.LEER_POR_ID}))
 router.put('/versiones/:id',     manejadorGenerico({modelo: Version,     accion: manejadorGenerico.ACTUALIZAR_POR_ID}))
 router.delete('/versiones/:id',  manejadorGenerico({modelo: Version,     accion: manejadorGenerico.ELIMINAR_POR_ID}))
+
+
+
+// -------------------- Rutas Tipo --------------------
+router.get('/tipos',        manejadorGenerico({modelo: Tipo, accion: manejadorGenerico.LEER}))
+router.get('/tipos/:id',    manejadorGenerico({modelo: Tipo, accion: manejadorGenerico.LEER_POR_ID}))
+router.post('/tipos',       manejadorGenerico({modelo: Tipo, accion: manejadorGenerico.CREAR}))
+router.put('/tipos/:id',    manejadorGenerico({modelo: Tipo, accion: manejadorGenerico.ACTUALIZAR_POR_ID}))
+router.delete('/tipos/:id', manejadorGenerico({modelo: Tipo, accion: manejadorGenerico.ELIMINAR_POR_ID}))
+
+
+
+
 
 
 export default router
