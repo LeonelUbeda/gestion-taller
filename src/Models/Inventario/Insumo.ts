@@ -2,7 +2,10 @@ import Sequelize, {Model} from 'sequelize'
 import database from '../../Database/database'
 import Usuario from '../Usuario/Usuario'
 
-class Insumo extends Model{}
+class Insumo extends Model{
+    id: number;
+    cantidad: number;
+}
 Insumo.init({
     id: {
         type: Sequelize.INTEGER,
@@ -65,21 +68,16 @@ MovimientoInsumo.init({
     tableName: 'movimientoinsumo'
 })
 
-Usuario.belongsToMany(Insumo, {
-    through: {
-        model: MovimientoInsumo
-    }
+
+Usuario.hasMany(MovimientoInsumo, {
+
+    foreignKey: 'usuario'
 })
 
-Insumo.belongsToMany(Usuario, {
-    through: {
-        model: MovimientoInsumo
-    }
+Insumo.hasMany(MovimientoInsumo, {
+    foreignKey: 'insumoId'
 })
 
 
-/**
- * Falta agregar la llave foranea que tiene con ticket
- */
 
-export default Usuario
+export { Insumo, MovimientoInsumo, UnidadDeMedida }

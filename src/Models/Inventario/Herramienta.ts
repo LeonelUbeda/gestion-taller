@@ -6,6 +6,7 @@ import Usuario from '../Usuario/Usuario'
 
 class Herramienta extends Model{
     id: number;
+    cantidad: number;
 }
 Herramienta.init({
     id: {
@@ -45,10 +46,12 @@ Categoria.init({
     }
 }, {
     sequelize: database,
-    tableName: 'categoria'
+    tableName: 'categoriah'
 })
 
-Categoria.hasMany(Herramienta)
+Categoria.hasMany(Herramienta, {
+    foreignKey: "categoriaId"
+})
 
 class MovimientoHerramienta extends Model{}
 
@@ -80,19 +83,15 @@ MovimientoHerramienta.init({
     }
 }, {
     sequelize: database,
-    tableName: 'movimientoherramiento'
+    tableName: 'movimientoherramienta'
 })
 
-Usuario.belongsToMany(Herramienta, {
-    through: {
-        model: MovimientoHerramienta
-    }
+Herramienta.hasMany(MovimientoHerramienta, {
+    foreignKey: 'herramientaId'
 })
 
-Herramienta.belongsToMany(Usuario, {
-    through: {
-        model: MovimientoHerramienta
-    }
+Usuario.hasMany(MovimientoHerramienta, {
+    foreignKey: 'usuario'
 })
 
 export {Categoria, Herramienta, MovimientoHerramienta}
