@@ -62,6 +62,19 @@ MovimientoInsumo.init({
         validate: {
             min: 0
         }
+    },
+    tipo: {
+        type: Sequelize.ENUM('entrada', 'salida'),
+        allowNull: false
+    },
+    fecha: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW
+    },
+    razon: {
+        type: Sequelize.STRING(144), // no se si deberia de tener esta length
+        // allowNull: false, // no se esto   
     }
 }, {
     sequelize: database,
