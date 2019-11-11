@@ -1,11 +1,11 @@
-import {Router, Response, Request} from 'express'
+import {Router} from 'express'
 
 const router = Router();
 
 
 // -------------------- Controladores --------------------
-import manejadorGenerico from '../Controllers/manejadorGenerico';
-import { Rol, Permiso } from '../Models/Usuario/RolPermiso';
+import manejadorGenerico from '../../Controllers/manejadorGenerico';
+import { Rol, Permiso } from '../../Models/Usuario/RolPermiso';
 
 
 

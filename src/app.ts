@@ -18,15 +18,15 @@ const app = express();
 
 import RutaCliente from './Routes/Cliente'
 import RutaAutenticacion from './Routes/Autenticacion'
-import RutaUsuario from './Routes/Usuario'
-import RutaRol from './Routes/Rol'
-import RutaPermiso from './Routes/Permiso'
+import RutaUsuario from './Routes/Usuario/Usuario'
+import RutaRol from './Routes/Usuario/Rol'
+import RutaPermiso from './Routes/Usuario/Permiso'
 import RutaRolPermiso from './Routes/Usuario/RolPermiso'
 import RutaDatosDePrueba from './Routes/DatosDePrueba/Main'
 import RutaCategoriaServicio from './Routes/Servicio/Categoria'
 import RutaServicio from './Routes/Servicio/Servicio'
 import RutaClasificacionAuto from './Routes/Vehiculo/ClasificacionAuto'
-
+import RutaAuto from './Routes/Vehiculo/Auto'
 // -------------------- Midlewares --------------------
 app.use(json())
 
@@ -42,7 +42,8 @@ app.use('/api/rolpermiso',      RutaRolPermiso)
 app.use('/api/datosdeprueba',   RutaDatosDePrueba)
 app.use('/api/servicios/',              RutaServicio)
 app.use('/api/servicios/categorias',    RutaCategoriaServicio)
-app.use('/api/vehiculos/',              RutaClasificacionAuto)
+app.use('/api/vehiculos/',               RutaClasificacionAuto) // Dentro de esta ruta esta /marca /modelo /version
+app.use('/api/vehiculos',               RutaAuto)
 
 
 

@@ -1,6 +1,6 @@
 import {Router} from 'express'
 
-const router = Router();
+const router = Router()
 
 import manejadorGenerico from '../../Controllers/manejadorGenerico'
 import Marca from '../../Models/Vehiculo/Marca';

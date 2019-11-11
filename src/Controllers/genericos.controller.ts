@@ -26,7 +26,10 @@ export const factoryModelTodos = ({ modelo,  include = [] }) =>  {  // Solo para
 export const factoryModelID = ({ modelo,  include = []  }) => {
     return async (id : number) => {
         try {
-            const respuesta = await modelo.findOne({ where: { id } , include})
+            const respuesta = await modelo.findOne({ 
+                where: { id }, 
+                include
+            })
             return respuesta
         } catch (error) {
             console.log(error)

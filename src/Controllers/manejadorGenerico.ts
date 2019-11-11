@@ -2,7 +2,7 @@ import { factoryModelNuevo, factoryModelTodos, factoryModelActualizarId, factory
 import {Request, Response} from 'express'
 
 
-const manejadorGenerico = ({modelo, accion, include = []}) => {
+const manejadorGenerico = ({modelo, accion, include = [] }) => {
     const HTTP = {
         // Retorna los registros que coinciden con las variables del req.query
         // 
@@ -18,7 +18,7 @@ const manejadorGenerico = ({modelo, accion, include = []}) => {
         },
         leerId: async (req: Request, res: Response) => {
             const {id} = req.params
-            const modeloTodosId = factoryModelID({modelo})
+            const modeloTodosId = factoryModelID({modelo, include})
             try {
                 const resultado = await modeloTodosId(parseInt(id))
                 res.status(200).json(resultado)

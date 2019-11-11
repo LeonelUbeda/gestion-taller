@@ -6,13 +6,17 @@ const router = Router();
 import Cliente from '../../Models/Cliente'
 
 // -------------------- Datos de prueba --------------------
-import ClienteDatos from './ClienteDatos'
+import {ClienteDatos, MarcaAutos, ModeloAutos} from './Datos genericos'
+import Marca from '../../Models/Vehiculo/Marca';
+import Modelo from '../../Models/Vehiculo/Modelo';
 
 
 
 
 router.get('/crear', async (req: Request, res: Response) => {
     Cliente.bulkCreate(ClienteDatos)
+    Marca.bulkCreate(MarcaAutos)
+    Modelo.bulkCreate(ModeloAutos)
     res.send('CREADO')
 })
 

@@ -1,44 +1,36 @@
 import {Router, Response, Request} from 'express'
 const router = Router();
 
-import manejadorGenerico from '../Controllers/manejadorGenerico'
-import Usuario from '../Models/Usuario/Usuario';
+import manejadorGenerico from '../../Controllers/manejadorGenerico'
+import Usuario from '../../Models/Usuario/Usuario';
 
 // -------------------- Controladores --------------------
-import {usuarioNuevo, usuarioActualizar, usuarioEliminar, usuarioTodos, usuarioID, usuarioIDRol} from '../Controllers/Usuario/usuario.controller'
+import {usuarioNuevo, usuarioActualizar} from '../../Controllers/Usuario/usuario.controller'
 
 
 // -------------------- Utils --------------------
-import encriptar from '../utils/encriptar'
+import encriptar from '../../utils/encriptar'
+import { Rol, Permiso } from '../../Models/Usuario/RolPermiso';
 
 // -------------------- Rutas Usuario --------------------
 
 router.get('/',         manejadorGenerico({modelo: Usuario,     accion: manejadorGenerico.LEER}))
-router.get('/:nombre',  manejadorGenerico({modelo: Usuario,     accion: manejadorGenerico.LEER_PARAMETROS})),
 
-// Obtener todos los usuarios
-/*
-router.get('/', async (req: Request, res: Response) => {
-    const consulta = req.query
-    try {
-        const resultado = await usuarioTodos(consulta)
-        res.status(200).json(resultado)
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }
-})
+router.get('/:nombre',  manejadorGenerico({modelo: Usuario,     accion: manejadorGenerico.LEER_PARAMETROS}))
 
-// Obtener todos los usuarios
-router.get('/:usuario', async (req: Request, res: Response) => {
-    const { usuario } = req.params
-    try {
-        const resultado = await usuarioIDRol(usuario)
-        res.status(200).json(resultado)
-    } catch (error) {
-        res.status(400).json({mensaje: 'Error'})
-    }
-})
-*/
+router.get('/:nombre/info', manejadorGenerico({
+    modelo: Usuario,
+    accion: manejadorGenerico.LEER_PARAMETROS,
+    include: [{
+        model: Rol,
+        include: [{
+            model: Permiso,
+            through: {
+                attributes: ['nivelAcceso']
+            }
+        }]
+    }]
+}))
 
 // Crear nuevo Usuario.     Obligatorio: usuario, nombre, rolId.    Opcional: apellido
 router.post('/', async (req: Request, res: Response) => {
@@ -72,10 +64,6 @@ router.put('/:usuario', async (req: Request, res: Response) => {
 })
 
 router.delete('/:usuario', manejadorGenerico({modelo: Usuario, accion: manejadorGenerico.ELIMINAR_POR_PARAMETROS}))
-
-
-
-
 
 
 export default router

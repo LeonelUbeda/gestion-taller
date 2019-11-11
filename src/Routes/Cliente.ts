@@ -1,12 +1,15 @@
-import {Router, Response, Request} from 'express'
+import {Router} from 'express'
 import verificarPermiso from '../Middlewares/verificarPermisos'
 const router = Router();
+
+// -------------------- Manejadores --------------------
 import manejadorGenerico from '../Controllers/manejadorGenerico'
 
-// -------------------- Controladores --------------------
-import {ClienteTodos, clienteActualizar, ClienteID, ClienteNuevo, ClienteEliminar, telefonoClienteEliminar, telefonoClienteNuevo, telefonoClienteTodos, telefonoClienteActualizar, telefonoBuscar} from '../Controllers/cliente.controller';
+
+// -------------------- Modelos --------------------
 import Cliente from '../Models/Cliente';
 import Telefono from '../Models/Telefono';
+import Auto from '../Models/Vehiculo/Auto';
 
 
 
@@ -34,20 +37,11 @@ router.get('/:clienteId/telefono', manejadorGenerico({modelo: Telefono, accion: 
 // Busca un telefono sin especificar el id de usuario (por si se necesita en algun momento)
 router.get('/telefono/:telefono', manejadorGenerico({modelo: Telefono, accion: manejadorGenerico.LEER_PARAMETROS}))
 
+
+router.get('/:clienteId/vehiculos', manejadorGenerico({modelo: Auto, accion: manejadorGenerico.LEER_PARAMETROS}))
+
 // Crear nuevo telefono a un cliente
-router.post('/:clienteId/telefono', async (req: Request, res: Response) => {
-    const { clienteId } = req.params
-    const {telefono} = req.body
-    try {
-        const respuesta = await telefonoClienteNuevo({telefono, clienteId})
-        res.status(201).json(respuesta)
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({mensaje: 'Error'})
-    }
-})
-// LA FUNCION DE ARRIBA TIENE QUE SER REEMPLAZADA POR 
-//router.post('/:clienteId/telefono', manejadorGenerico({modelo: Telefono, accion: manejadorGenerico.CREAR_PARAMETROS}))
+router.post('/:clienteId/telefono', manejadorGenerico({modelo: Telefono, accion: manejadorGenerico.CREAR}))
 
 
 // Edita un telefono que le pertenece a un cliente. 
@@ -57,8 +51,6 @@ router.put('/:clienteId/telefono/:telefono', manejadorGenerico({modelo: Telefono
 // Borra un telefono que le pertenece a un cliente
 // Cliente y telefono tienen que ser especificados en los parametros
 router.delete('/:clienteId/telefono/:telefono', manejadorGenerico({modelo: Telefono, accion: manejadorGenerico.ELIMINAR_POR_PARAMETROS}))
-
-
 
 
 export default router;

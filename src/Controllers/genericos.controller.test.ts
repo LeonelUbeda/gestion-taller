@@ -8,96 +8,84 @@ const dataSetCliente = [
     nombre: 'Leonel',
     apellido: 'Sanchez',
     direccion: 'Una Dirreccion',
-    tipoCliente: 'Persona',
-    fechaRegistro: '2019-08-10'
+    tipoCliente: 'Persona'
     },
     {
         id: 2,
         nombre: 'Carlos',
         apellido: 'Dinarte',
         direccion: 'Direccion 2',
-        tipoCliente: 'Empresa',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Empresa'
     },
     {
         id: 3,
         nombre: 'Roberto',
         apellido: 'Sanchez',
         direccion: 'Direccion 3',
-        tipoCliente: 'Persona',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Persona'
     },
     {
         id: 4,
         nombre: 'Leonel',
         apellido: 'Sanchez',
         direccion: 'Una Dirreccion',
-        tipoCliente: 'Persona',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Persona'
     },
     {
         id: 5,
         nombre: 'Carlos',
         apellido: 'Dinarte',
         direccion: 'Direccion 2',
-        tipoCliente: 'Empresa',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Empresa'
     },
     {
         id: 6,
         nombre: 'Roberto',
         apellido: 'Sanchez',
         direccion: 'Direccion 3',
-        tipoCliente: 'Persona',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Persona'
     },
     {
         id: 7,
         nombre: 'Leonel',
         apellido: 'Sanchez',
         direccion: 'Una Dirreccion',
-        tipoCliente: 'Persona',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Persona'
     },
     {
         id: 8,
         nombre: 'Carlos',
         apellido: 'Dinarte',
         direccion: 'Direccion 2',
-        tipoCliente: 'Empresa',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Empresa'
     },
     {
         id: 9,
         nombre: 'Roberto',
         apellido: 'Sanchez',
         direccion: 'Direccion 3',
-        tipoCliente: 'Persona',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Persona'
     },
     {
         id: 10,
         nombre: 'Leonel',
         apellido: 'Sanchez',
         direccion: 'Una Dirreccion',
-        tipoCliente: 'Persona',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Persona'
     },
     {
         id: 20,
         nombre: 'Carlos',
         apellido: 'Dinarte',
         direccion: 'Direccion 2',
-        tipoCliente: 'Empresa',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Empresa'
     },
     {
         id: 35,
         nombre: 'Roberto',
         apellido: 'Sanchez',
         direccion: 'Direccion 3',
-        tipoCliente: 'Persona',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Persona'
     }
 ]
 
@@ -109,15 +97,13 @@ test('factoryModelTodos devuelve una funcion', async () =>
         nombre: 'Roberto',
         apellido: 'Sanchez',
         direccion: 'Una Dirreccion',
-        tipoCliente: 'Persona',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Persona'
     }, {
         id: 2,
         nombre: 'Roberto',
         apellido: 'Sanchez',
         direccion: 'Una Dirreccion',
-        tipoCliente: 'Persona',
-        fechaRegistro: '2019-08-10'
+        tipoCliente: 'Persona'
     })
     const clienteTodos = factoryModelTodos({ modelo: model })
     const result = await clienteTodos({})
