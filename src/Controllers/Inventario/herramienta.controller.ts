@@ -29,10 +29,9 @@ export const herramientaIDMovimiento = async ( id ) => {
 // El id a la tabla original se añade automaticamente.
 export const herramientaNuevo = async ( elemento: object, elementoMovimiento: object ) => {
     try {
-        const respuesta = await Herramienta.create({ movimiento: [elementoMovimiento], ...elemento }, {
+        const respuesta = await Herramienta.create({ MovimientoHerramienta: [elementoMovimiento], ...elemento }, {
             include: [{
-                model: MovimientoHerramienta,
-                as: 'movimiento'
+                model: MovimientoHerramienta
             }]
         })
         return respuesta;
