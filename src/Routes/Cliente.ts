@@ -9,7 +9,7 @@ import manejadorGenerico from '../Controllers/manejadorGenerico'
 // -------------------- Modelos --------------------
 import Cliente from '../Models/Cliente';
 import Telefono from '../Models/Telefono';
-import Auto from '../Models/Vehiculo/Auto';
+import Vehiculo from '../Models/Vehiculo/Vehiculo';
 
 
 
@@ -38,7 +38,7 @@ router.get('/:clienteId/telefono', manejadorGenerico({modelo: Telefono, accion: 
 router.get('/telefono/:telefono', manejadorGenerico({modelo: Telefono, accion: manejadorGenerico.LEER_PARAMETROS}))
 
 
-router.get('/:clienteId/vehiculos', manejadorGenerico({modelo: Auto, accion: manejadorGenerico.LEER_PARAMETROS}))
+router.get('/:clienteId/vehiculos', manejadorGenerico({modelo: Vehiculo, accion: manejadorGenerico.LEER_PARAMETROS}))
 
 // Crear nuevo telefono a un cliente
 router.post('/:clienteId/telefono', manejadorGenerico({modelo: Telefono, accion: manejadorGenerico.CREAR}))

@@ -6,7 +6,7 @@ const router = Router()
 import manejadorGenerico from '../../Controllers/manejadorGenerico'
 
 // -------------------- Modelos --------------------
-import Auto from '../../Models/Vehiculo/Auto'
+import Vehiculo from '../../Models/Vehiculo/Vehiculo'
 import Cliente from '../../Models/Cliente'
 import Modelo from '../../Models/Vehiculo/Modelo'
 import Tipo from '../../Models/Vehiculo/Tipo'
@@ -16,13 +16,13 @@ import Marca from '../../Models/Vehiculo/Marca'
 
 // -------------------- Rutas --------------------
 
-router.get('/',         manejadorGenerico({modelo: Auto,     accion: manejadorGenerico.LEER}))
+router.get('/',         manejadorGenerico({modelo: Vehiculo,     accion: manejadorGenerico.LEER}))
 
-router.get('/:id',      manejadorGenerico({modelo: Auto,     accion: manejadorGenerico.LEER_POR_ID}))
+router.get('/:id',      manejadorGenerico({modelo: Vehiculo,     accion: manejadorGenerico.LEER_POR_ID}))
 
 // Obtiene la informacion de un auto con su informacion de Modelo, Tipo y Version
 router.get('/:id/info',      manejadorGenerico({
-    modelo: Auto,     
+    modelo: Vehiculo,     
     accion: manejadorGenerico.LEER_POR_ID,
     include: [
         {   
@@ -41,7 +41,7 @@ router.get('/:id/info',      manejadorGenerico({
     ]
 }))
 
-router.get('/:id/cliente', manejadorGenerico({modelo: Auto,  
+router.get('/:id/cliente', manejadorGenerico({modelo: Vehiculo,  
     accion: manejadorGenerico.LEER_POR_ID, 
     include: [{
         model: Cliente,
@@ -49,11 +49,11 @@ router.get('/:id/cliente', manejadorGenerico({modelo: Auto,
     }]
 }))
 
-router.post('/',        manejadorGenerico({modelo: Auto,     accion: manejadorGenerico.CREAR}))
+router.post('/',        manejadorGenerico({modelo: Vehiculo,     accion: manejadorGenerico.CREAR}))
 
-router.put('/:id',      manejadorGenerico({modelo: Auto,     accion: manejadorGenerico.ACTUALIZAR_POR_ID}))
+router.put('/:id',      manejadorGenerico({modelo: Vehiculo,     accion: manejadorGenerico.ACTUALIZAR_POR_ID}))
 
-router.delete('/:id',   manejadorGenerico({modelo: Auto,     accion: manejadorGenerico.ELIMINAR_POR_ID }))
+router.delete('/:id',   manejadorGenerico({modelo: Vehiculo,     accion: manejadorGenerico.ELIMINAR_POR_ID }))
 
 export default router
 

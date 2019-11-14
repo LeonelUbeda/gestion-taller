@@ -25,8 +25,8 @@ import RutaRolPermiso from './Routes/Usuario/RolPermiso'
 import RutaDatosDePrueba from './Routes/DatosDePrueba/Main'
 import RutaCategoriaServicio from './Routes/Servicio/Categoria'
 import RutaServicio from './Routes/Servicio/Servicio'
-import RutaClasificacionAuto from './Routes/Vehiculo/ClasificacionAuto'
-import RutaAuto from './Routes/Vehiculo/Auto'
+import RutaClasificacionVehiculo from './Routes/Vehiculo/ClasificacionAuto'
+import RutaVehiculo from './Routes/Vehiculo/Vehiculo'
 import RutaHerramienta from './Routes/Inventario/Herramienta'
 import RutaCategoriaHerramienta from './Routes/Inventario/Categoria'
 import RutaInsumo from './Routes/Inventario/Insumo'
@@ -45,9 +45,8 @@ app.use('/api/rolpermiso',      RutaRolPermiso)
 app.use('/api/datosdeprueba',   RutaDatosDePrueba)
 app.use('/api/servicios/',              RutaServicio)
 app.use('/api/servicios/categorias',    RutaCategoriaServicio)
-app.use('/api/vehiculos/',               RutaClasificacionAuto) // Dentro de esta ruta esta /marca /modelo /version
-app.use('/api/vehiculos',               RutaAuto)
-app.use('/api/vehiculos/',              RutaClasificacionAuto)
+app.use('/api/vehiculos/',              RutaClasificacionVehiculo) // Dentro de esta ruta esta /marca /modelo /version
+app.use('/api/vehiculos',               RutaVehiculo)
 app.use('/api/herramienta',             RutaHerramienta)
 app.use('/api/herramienta/categorias',  RutaCategoriaHerramienta)
 app.use('/api/insumo',                  RutaInsumo)

@@ -6,9 +6,9 @@ import Modelo from './Modelo'
 import Version from './Version'
 
 
-class Auto extends Model{}
+class Vehiculo extends Model{}
 
-Auto.init({
+Vehiculo.init({
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -40,10 +40,10 @@ Auto.init({
     modelName: 'auto'
 })
 
-Auto.belongsTo(Cliente, {foreignKey: 'clienteId',   targetKey: 'id'})
-Auto.belongsTo(Tipo,    {foreignKey: 'tipoId',      targetKey: 'id'})
-Auto.belongsTo(Modelo,  {foreignKey: 'modeloId',    targetKey: 'id'})
-Auto.belongsTo(Version, {foreignKey: 'versionId',   targetKey: 'id'})
+Vehiculo.belongsTo(Cliente, {foreignKey: 'clienteId',   targetKey: 'id'})
+Vehiculo.belongsTo(Tipo,    {foreignKey: 'tipoId',      targetKey: 'id'})
+Vehiculo.belongsTo(Modelo,  {foreignKey: 'modeloId',    targetKey: 'id'})
+Vehiculo.belongsTo(Version, {foreignKey: 'versionId',   targetKey: 'id'})
 
 
-export default Auto
+export default Vehiculo
